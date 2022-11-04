@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "571781589345",
+    "project_id": "reem-4c6a1",
+    "storage_bucket": "reem-4c6a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571781589345:android:887605c662fedf5e217d20",
+        "android_client_info": {
+          "package_name": "com.reemglam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571781589345-8bfj92n3bub7s3s7usq0e06gk0e42uom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reemglam",
+            "certificate_hash": "3091dc57d504268d7a0c8d35e94b5d7f9c0f430a"
+          }
+        },
+        {
+          "client_id": "571781589345-dl32csge6r997pp717jnsl3fola9cm7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSlYn62A_SunI7aMLUNoGrN3MiEsOqVhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571781589345-dl32csge6r997pp717jnsl3fola9cm7n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "571781589345-q2ms1i5s95l7dv6b94elgk053bnatuvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.reemglam"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

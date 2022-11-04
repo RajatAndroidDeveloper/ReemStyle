@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation.xml"
+    app:startDestination="@id/homeFragment2">
+
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.reemastyle.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"
+        app:enterAnim="@anim/slide_from_right"
+        app:exitAnim="@anim/slide_to_left">
+        <action
+            android:id="@+id/action_homeFragment2_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_sideMenuFragment"
+            app:destination="@id/sideMenuFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_bookingsFragment"
+            app:destination="@id/bookingsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_subcategoryFragment"
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_categoriesFragment"
+            app:destination="@id/categoriesFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_packageDetailsFragment"
+            app:destination="@id/packageDetailsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_subcategoryFragment2"
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_homeFragment2_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />/>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.reemastyle.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        app:enterAnim="@anim/slide_from_right"
+        app:exitAnim="@anim/slide_to_left">
+        <action
+            android:id="@+id/action_profileFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/sideMenuFragment"
+        android:name="com.reemastyle.SideMenuFragment"
+        android:label="SideMenuFragment"
+        tools:layout="@layout/fragment_side_menu">
+        <action
+            android:id="@+id/action_sideMenuFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_profileFragment2"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_sideMenuFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.reemastyle.bookings.BookingsFragment"
+        android:label="fragment_bookings"
+        tools:layout="@layout/fragment_bookings" >
+        <action
+            android:id="@+id/action_bookingsFragment_to_rescheduleBooking"
+            app:destination="@id/rescheduleBooking"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.reemastyle.service.ServiceDetailFragment"
+        android:label="ServiceDetailFragment"
+        tools:layout="@layout/fragment_service_deatil">
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_selectLocationFragment2"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/subcategoryFragment"
+        android:name="com.reemastyle.service.SubCategoryFragment"
+        android:label="ServiceDetailFragment"
+        tools:layout="@layout/fragment_sub_category">
+        <action
+            android:id="@+id/action_subcategoryFragment_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_subcategoryFragment_to_heenaDetailFragment"
+            app:destination="@id/heenaDetailFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.reemastyle.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"/>
+        <action
+            android:id="@+id/action_cartFragment_to_rescheduleBooking"
+            app:destination="@id/rescheduleBooking"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.reemastyle.cart.SummaryFragment"
+        android:label="fragment_summary"
+        tools:layout="@layout/fragment_summary" >
+        <action
+            android:id="@+id/action_summaryFragment_to_appointmentSuccessFragment"
+            app:destination="@id/appointmentSuccessFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.reemastyle.address.SelectLocationFragment"
+        android:label="fragment_select_location"
+        tools:layout="@layout/fragment_select_location" >
+        <action
+            android:id="@+id/action_selectLocationFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.reemastyle.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" >
+        <argument
+            android:name="from"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_addressFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentSuccessFragment"
+        android:name="com.reemastyle.cart.AppointmentSuccessFragment"
+        android:label="fragment_appointment_success"
+        tools:layout="@layout/fragment_appointment_success" >
+        <action
+            android:id="@+id/action_appointmentSuccessFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_appointmentSuccessFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_appointmentSuccessFragment_to_bookingsFragment2"
+            app:destination="@id/bookingsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/rescheduleBooking"
+        android:name="com.reemastyle.reschedule.RescheduleBooking"
+        android:label="RescheduleBooking"
+        tools:layout="@layout/fragment_reschedule_booking">
+        <argument
+            android:name="cartItem"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="bookingData"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="from"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_rescheduleBooking_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/packagesFragment"
+        android:name="com.reemastyle.packages.PackagesFragment"
+        android:label="fragment_packages"
+        tools:layout="@layout/fragment_packages" >
+        <action
+            android:id="@+id/action_packagesFragment_to_packageDetailsFragment"
+            app:destination="@id/packageDetailsFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="com.reemastyle.packages.PackageDetailsFragment"
+        android:label="PackageDetailsFragment"
+        tools:layout="@layout/fragment_package_details">
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.reemastyle.service.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.reemastyle.profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" />
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.reemastyle.gallery.GalleryFragment"
+        android:label="GalleryFragment"
+        tools:layout="@layout/fragment_gallery"/>
+    <fragment
+        android:id="@+id/heenaDetailFragment"
+        android:name="com.reemastyle.heena.HeenaDetailFragment"
+        android:label="fragment_heena_detail"
+        tools:layout="@layout/fragment_heena_detail" >
+        <action
+            android:id="@+id/action_heenaDetailFragment_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_heenaDetailFragment_to_bookHeenaFragment"
+            app:destination="@id/bookHeenaFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.reemastyle.profile.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        tools:layout="@layout/change_password_fragment"/>
+    <fragment
+        android:id="@+id/bookHeenaFragment"
+        android:name="com.reemastyle.heena.BookHeenaFragment"
+        android:label="BookHeenaFragment"
+        tools:layout="@layout/fragment_book_heena">
+        <argument
+            android:name="heena_data"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="heena_details"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_bookHeenaFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.reemastyle.notification.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications"/>
+</navigation>

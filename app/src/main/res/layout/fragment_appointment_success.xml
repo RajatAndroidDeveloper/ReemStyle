@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="match_parent"
+    tools:context=".cart.AppointmentSuccessFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/order_success_background"
+        android:scaleType="centerCrop"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_order_success"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/ic_tick"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/order_success"
+            android:textSize="@dimen/_25sdp"
+            android:textColor="@color/white"
+            android:id="@+id/txt_order_success"
+            android:textStyle="bold"
+            android:fontFamily="@font/oranienbaum_regular"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/ic_tick"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_dark_pink_button_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/black"
+            android:text="@string/continue_booking"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"
+            android:id="@+id/btn_continue_booking"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/txt_order_success"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btn_bookings"
+            android:text="@string/go_to_bookings"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/btn_continue_booking"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

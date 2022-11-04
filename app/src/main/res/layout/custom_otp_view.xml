@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/etDigit1"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/ic_otp_bg"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit1"
+        android:nextFocusRight="@+id/etDigit2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp" />
+
+    <EditText
+        android:id="@+id/etDigit2"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:background="@drawable/ic_otp_bg"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit1"
+        android:nextFocusRight="@+id/etDigit3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp" />
+
+    <EditText
+        android:id="@+id/etDigit3"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:background="@drawable/ic_otp_bg"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit2"
+        android:nextFocusRight="@+id/etDigit4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp" />
+
+    <EditText
+        android:id="@+id/etDigit4"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:background="@drawable/ic_otp_bg"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit3"
+        android:nextFocusRight="@+id/etDigit4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp" />
+
+</LinearLayout>

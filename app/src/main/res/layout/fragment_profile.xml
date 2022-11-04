@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    tools:context=".auth.LoginFragment">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/oranienbaum_regular"
+        android:text="@string/my_profile"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_back" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:src="@drawable/ic_dummy_profile"
+        app:layout_constraintTop_toBottomOf="@id/txt_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/img_profile"
+        android:layout_marginTop="@dimen/_40sdp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_profile"
+        android:text="@string/name"
+        android:textColor="@color/text_dark_grey"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/txt_name_hint"
+        android:textSize="@dimen/_9ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_name_hint"
+        android:text="------"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:id="@+id/txt_name"
+        android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_name"
+        android:text="@string/email"
+        android:textColor="@color/text_dark_grey"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/txt_email_hint"
+        android:textSize="@dimen/_9ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_email_hint"
+        android:text="-------"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:id="@+id/txt_email"
+        android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_email"
+        android:text="@string/mobile"
+        android:textColor="@color/text_dark_grey"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/txt_mobile_hint"
+        android:textSize="@dimen/_9ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_mobile_hint"
+        android:text="-------"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:id="@+id/txt_mobile"
+        android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_profile_button_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_mobile"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:text="@string/edit_profile"
+        android:textColor="@color/app_dark_bg"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="@dimen/_12ssp"
+        android:id="@+id/btn_edit"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_profile_button_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/change_password"
+        android:textColor="@color/app_dark_bg"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="@dimen/_12ssp"
+        android:id="@+id/btn_change_password"/>
+
+    <ImageView
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/splash_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_20sdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

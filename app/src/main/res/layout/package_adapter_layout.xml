@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:background="@android:color/transparent"
+    android:elevation="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_10sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/img_offer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_offer_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_offer_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_offer_transparent_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/img_offer"
+            app:layout_constraintEnd_toEndOf="@+id/img_offer"
+            app:layout_constraintStart_toStartOf="@+id/img_offer"
+            app:layout_constraintTop_toTopOf="@+id/img_offer" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_offer_value"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rounded_pink_bg"
+            android:backgroundTint="@color/offer_color"
+            android:elevation="@dimen/_10sdp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingRight="@dimen/_8sdp"
+            android:text="50% OFF"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:textSize="@dimen/_10ssp"
+            app:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintEnd_toEndOf="@id/img_offer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginTop="@dimen/_15sdp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/txt_description"
+            android:text="Scissors N' Rozers"
+            android:maxLines="1"
+            android:elevation="@dimen/_10sdp"
+            app:fontFamily="@font/montserrat_semibold"
+            android:id="@+id/txt_salon_name"
+            app:layout_constraintStart_toStartOf="@id/txt_price"
+            android:layout_marginBottom="@dimen/_3sdp"
+            app:layout_constraintEnd_toEndOf="@id/txt_price"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/txt_price"
+            android:text="Hair Sap(Anti Dendruff/Hair Fall Control Dry Hair"
+            android:maxLines="1"
+            android:elevation="@dimen/_10sdp"
+            android:id="@+id/txt_description"
+            app:layout_constraintStart_toStartOf="@id/txt_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:textSize="@dimen/_12ssp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="QAR 200"
+            app:fontFamily="@font/montserrat_semibold"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:id="@+id/txt_price"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/txt_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text=""
+            app:fontFamily="@font/montserrat_semibold"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:id="@+id/txt_offerPrice"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

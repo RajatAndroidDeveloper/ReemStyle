@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#842990</color>
+    <color name="purple_500">#842990</color>
+    <color name="purple_700">#842990</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="app_bg_gradient_1">#842990</color>
+    <color name="app_bg_gradient_2">#CD51A2</color>
+    <color name="offer_color">#FF6DAF</color>
+    <color name="app_dark_bg">#83288F</color>
+    <color name="app_light_color">#DCB6E1</color>
+    <color name="offer_indicator_color">#CD51A2</color>
+    <color name="home_bg_color">#F5E9E9</color>
+    <color name="txt_pink_color">#C74EA1</color>
+
+    <color name="border_grey">#E5E5E5</color>
+    <color name="bg_grey">#FAFAFA</color>
+    <color name="text_dark_grey">#B1B1B1</color>
+</resources>

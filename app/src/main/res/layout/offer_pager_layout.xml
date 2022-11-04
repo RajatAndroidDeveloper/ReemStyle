@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:background="@android:color/transparent"
+    android:elevation="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_10sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/img_offer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_offer_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_offer_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_offer_transparent_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/img_offer"
+            app:layout_constraintEnd_toEndOf="@+id/img_offer"
+            app:layout_constraintStart_toStartOf="@+id/img_offer"
+            app:layout_constraintTop_toTopOf="@+id/img_offer" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_offer"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Get 50\ndiscount on\nhairstyle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toTopOf="@id/txt_offer_value"
+            app:layout_constraintStart_toStartOf="@id/img_offer"
+            app:layout_constraintTop_toTopOf="@id/img_offer"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_goneMarginTop="@dimen/_15sdp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_offer_value"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rounded_pink_bg"
+            android:backgroundTint="@color/offer_color"
+            android:elevation="@dimen/_10sdp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingRight="@dimen/_8sdp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintBottom_toBottomOf="@id/img_offer"
+            app:layout_constraintStart_toStartOf="@id/img_offer"
+            app:layout_constraintTop_toBottomOf="@id/txt_offer"
+            app:layout_goneMarginTop="@dimen/_15sdp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
