@@ -54,7 +54,7 @@ class GalleryFragment: Fragment(), OnGalleryItemClick, OnGallerySmallItemClick {
         viewModel.galleryResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_gallery)
+                Utils.showSnackBar(it.message?:getString(R.string.please_try_ahain), rv_gallery)
             } else {
                 if(it?.gallery?.isNullOrEmpty() == false){
                     galleryList = it?.gallery as ArrayList<GalleryItem> /* = java.util.ArrayList<com.reemastyle.model.gallery.GalleryItem> */

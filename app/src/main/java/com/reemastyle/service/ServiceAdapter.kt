@@ -18,8 +18,9 @@ class ServiceAdapter (private var context: Context, private var serviceItemClick
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.layout.txt_service_size.text = serviceList[position].name
+        holder.layout.txt_service_size.text = (serviceList[position].name?:"").capitalize()
         holder.layout.txt_price.text = context.getString(R.string.currency_value)+serviceList[position].price
+        holder.layout.txtDescription.text = (serviceList[position].discription?:"").capitalize()
         if((serviceList[position].quantity ?: 0) < 10){
             holder.layout.txt_quantity.text  = (serviceList[position].quantity?:0).toString()
         }else{

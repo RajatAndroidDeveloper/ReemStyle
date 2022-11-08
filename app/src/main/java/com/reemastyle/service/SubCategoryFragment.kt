@@ -111,7 +111,7 @@ class SubCategoryFragment : Fragment(), SubCategoryItemClicked, HeenaItemClicked
         viewModel.subCategoriesResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_subCategories)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), rv_subCategories)
             } else {
                 if (it?.packages?.isNullOrEmpty() == false) {
                     subCategoryList = it?.packages as ArrayList<PackagesItem> /* = java.util.ArrayList<com.reemastyle.model.home.PackagesItem> */
@@ -123,7 +123,7 @@ class SubCategoryFragment : Fragment(), SubCategoryItemClicked, HeenaItemClicked
         viewModel.heenaCategoriesResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_subCategories)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), rv_subCategories)
             } else {
                 txt_sub_category.text = Constants.SELECTED_CATEGORY_NAME
                 if (!Constants.SELECTED_CATEGORY_IMAGE.isNullOrEmpty())
@@ -173,6 +173,14 @@ class SubCategoryFragment : Fragment(), SubCategoryItemClicked, HeenaItemClicked
         (requireActivity() as HomeActivity).et_search.visibility = View.GONE
         Constants.SELECTED_SUB_CATEGORY = (heenaList[position].id?:"0").toInt()
         Constants.SELECTED_SUB_CATEGORY_NAME = heenaList[position].name?:""
-        findNavController().navigate(R.id.action_subcategoryFragment_to_heenaDetailFragment)
+        if((heenaList[position].name?:"").trim() == "Leg front" || (heenaList[position].name?:"").trim() == "الجبهة الساق"){
+            findNavController().navigate(R.id.action_subcategoryFragment_to_heenaLegFrontFragment)
+        } else if((heenaList[position].name?:"").trim() == "Leg front and back" || (heenaList[position].name?:"").trim() == "اليد الأمامية والخلفية" ){
+            findNavController().navigate(R.id.action_subcategoryFragment_to_heenaLegFrontBackFragment)
+        }  else if((heenaList[position].name?:"").trim() == "Hand front and back" || (heenaList[position].name?:"").trim() == "أمامي وخلفي الساق"){
+            findNavController().navigate(R.id.action_subcategoryFragment_to_heenaHandFrontBackFragment)
+        } else {
+            findNavController().navigate(R.id.action_subcategoryFragment_to_heenaDetailFragment)
+        }
     }
 }

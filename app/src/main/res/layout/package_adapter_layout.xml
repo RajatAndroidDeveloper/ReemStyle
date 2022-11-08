@@ -73,7 +73,8 @@
             android:id="@+id/txt_salon_name"
             app:layout_constraintStart_toStartOf="@id/txt_price"
             android:layout_marginBottom="@dimen/_3sdp"
-            app:layout_constraintEnd_toEndOf="@id/txt_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="@dimen/_10sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"/>
 

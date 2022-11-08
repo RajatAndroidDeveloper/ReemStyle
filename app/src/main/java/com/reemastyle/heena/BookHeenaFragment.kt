@@ -42,7 +42,7 @@ import kotlinx.android.synthetic.main.fragment_book_heena.txt_total
 import java.util.*
 
 class BookHeenaFragment: Fragment(), TimeSlotSelected {
-    private var selectedQuantity = 0.0
+    private var selectedQuantity = 0
     private var subtotal = 0.0
     private var selectedSlot = 0
     private var selectedHeena: HeenaSectionItem?= null
@@ -109,7 +109,7 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
         }
 
         img_add.setOnClickListener{
-            selectedQuantity += 1.0
+            selectedQuantity += 1
             calculatePrice()
             txt_quantity.text  = "$selectedQuantity"
         }
@@ -127,7 +127,7 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
         }
 
         img_minus.setOnClickListener {
-            if(selectedQuantity>0.0){
+            if(selectedQuantity>0){
                 selectedQuantity -= 1
                 calculatePrice()
                 txt_quantity.text  = "$selectedQuantity"
@@ -144,7 +144,7 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
                 return@setOnClickListener
             }
 
-            if(selectedQuantity == 0.0){
+            if(selectedQuantity == 0){
                 Utils.showSnackBar(getString(R.string.please_add_service),btn_book_now)
                 return@setOnClickListener
             }
@@ -223,10 +223,9 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
         mViewModel.addHeenaToCartResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == true) {
-                startActivity(Intent(requireActivity(),HomeActivity::class.java))
-                (requireActivity() as HomeActivity).finish()
+               findNavController().navigate(R.id.action_bookHeenaFragment_to_cartFragment)
             } else {
-                Utils.showSnackBar( "Please try again later", img_add)
+                Utils.showSnackBar( it.message?:getString(R.string.please_try_ahain), img_add)
             }
         })
 
@@ -262,7 +261,7 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
     }
 
     private fun calculatePrice() {
-        subtotal = (selectedHeena?.price?:"0.0").toDouble() * selectedQuantity
+        subtotal = (selectedHeena?.price?:"0.0").toDouble() * selectedQuantity.toDouble()
         txt_total.text = "${getString(R.string.currency_value)} $subtotal"
     }
 
@@ -321,16 +320,16 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
 
     private var selectedTime = "00:00:00"
     private fun compareDateAndTime(): Int{
-        selectedTime = selectedTime.replace(" ",":")
-        if(selectedTime.contains("AM") || selectedTime.contains("am")){
-            selectedTime = selectedTime.replace("AM","00")
-            selectedTime = selectedTime.replace("am","00")
-        }
-        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
-            selectedTime = selectedTime.replace("PM","00")
-            selectedTime = selectedTime.replace("pm","00")
-        }
-        var date = "$selectedDate $selectedTime"
+        selectedTime = Utils.getTimeIn24HoursFormat(selectedTime)
+//        if(selectedTime.contains("AM") || selectedTime.contains("am")){
+//            selectedTime = selectedTime.replace("AM","00")
+//            selectedTime = selectedTime.replace("am","00")
+//        }
+//        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
+//            selectedTime = selectedTime.replace("PM","00")
+//            selectedTime = selectedTime.replace("pm","00")
+//        }
+        var date = "${selectedDate} $selectedTime"
         return Utils.compareDateTimeForSlots(date)
     }
 }

@@ -26,7 +26,7 @@
         android:drawablePadding="@dimen/_5sdp"
         android:maxLines="1"
         android:drawableRight="@drawable/ic_down_arrow"
-        android:text="mushai.."
+        android:text="....."
         android:textColor="@color/white"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="@id/img_logo"

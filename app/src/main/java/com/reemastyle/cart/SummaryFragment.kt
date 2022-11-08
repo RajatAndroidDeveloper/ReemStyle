@@ -122,7 +122,7 @@ class SummaryFragment : Fragment() {
         viewModel.savedCartResponse.observe(requireActivity(), Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_services)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), rv_services)
             } else {
                 Utils.showSnackBar(it?.message ?: "", rv_services)
                 cartList = it?.items as ArrayList<ItemsItem> /* = java.util.ArrayList<com.reemastyle.model.cart.ItemsItem> */
@@ -143,7 +143,7 @@ class SummaryFragment : Fragment() {
         viewModel.placeOrderResponse.observe(requireActivity(), Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_services)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), rv_services)
             } else {
                 Utils.showSnackBar(it?.message ?: "", rv_services)
                 (requireActivity() as HomeActivity).toolbar.visibility = View.GONE
@@ -177,6 +177,7 @@ class SummaryFragment : Fragment() {
 
     private fun calculateTotalAmount(cartListData: ArrayList<ItemsItem>) {
         var totalAmount = 0.0
+        var totalHomeService = 0.0
         for (i in 0 until cartListData.size) {
             if(cartListData[i].subtotal =="") cartListData[i].subtotal = "0.0"
             if(cartListData[i].homeservice =="") cartListData[i].homeservice = "0.0"
@@ -188,14 +189,14 @@ class SummaryFragment : Fragment() {
                 (((cartListData[i].serviceprice
                     ?: "0.0").toDouble()) * ((cartListData[i].serviceQty ?: "0.0").toDouble()))
             }
+            totalHomeService += ((cartListData[i].homeservice ?: "0.0").toDouble())
+            totalAmount += ((cartListData[i].homeservice ?: "0.0").toDouble())
         }
-        txt_subtotal.text = "${getString(R.string.currency_value)} $totalAmount"
-        subTotal = totalAmount
-        txt_service_fee.text = "${getString(R.string.currency_value)} ${cartListData[0].homeservice}"
-        totalAmount += ((cartListData[0].homeservice ?: "0.0").toDouble())
+        subTotal = totalAmount - totalHomeService
+        txt_subtotal.text = "${getString(R.string.currency_value)} $subTotal"
+        txt_service_fee.text = "${getString(R.string.currency_value)} $totalHomeService"
         txt_total.text = "${getString(R.string.currency_value)}  $totalAmount"
         txt_total_val.text = "${getString(R.string.currency_value)}  $totalAmount"
-        totalAmount = totalAmount
     }
 
     companion object {

@@ -46,6 +46,8 @@ class SummaryServiceAdapter(private var context: Context, private var cartList: 
             holder.layout.txt_time_value.text  = (cartList[position].orderSlotTime?:"").replace("AM", context.getString(R.string.am_text))
         }else if (Preferences.prefs?.getString("Language","en") == "ar" && (cartList[position].orderSlotTime?:"").contains("PM")){
             holder.layout.txt_time_value.text  = (cartList[position].orderSlotTime?:"").replace("PM", context.getString(R.string.pm_text))
+        }else{
+            holder.layout.txt_time_value.text  = (cartList[position].orderSlotTime?:"")
         }
         if(cartList[position].addresstype == "home"){
             holder.layout.txt_booking_type_val.text = context.getString(R.string.home)

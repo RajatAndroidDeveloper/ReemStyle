@@ -9,13 +9,14 @@ import com.reemastyle.model.address.AddAddressResponse
 import com.reemastyle.model.getaddress.GetAddressResponse
 import com.reemastyle.model.home.HomeResponse
 import com.reemastyle.model.login.LoginResponse
+import com.reemastyle.model.notification.NotificationResponse
 import com.reemastyle.model.search.SearchCategoryResponse
 
 class HomeViewModel: MyViewModel() {
     var homeResponse = MutableLiveData<HomeResponse>()
     var getAddressResponse = MutableLiveData<GetAddressResponse>()
     var searchCategoryResponse = MutableLiveData<SearchCategoryResponse>()
-    var notificationsResponse = MutableLiveData<SearchCategoryResponse>()
+    var notificationsResponse = MutableLiveData<NotificationResponse>()
 
     fun getHomeData(map: JsonObject) {
         isLoading.value = true

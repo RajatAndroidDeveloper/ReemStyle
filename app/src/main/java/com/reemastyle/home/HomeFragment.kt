@@ -1,6 +1,10 @@
 package com.reemastyle.home
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.reemastyle.HomeActivity
 import com.reemastyle.R
@@ -24,9 +30,13 @@ import com.reemastyle.util.ZoomOutPageTransformer
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_packages.*
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.RuntimePermissions
 import java.lang.Math.abs
+import java.util.*
 
-
+@RuntimePermissions
 class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
     private var categoryList: ArrayList<CategoryModel> = ArrayList<CategoryModel>()
     private lateinit var categoriesAdapter: CategoriesAdapter
@@ -73,6 +83,8 @@ class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
             (requireActivity() as HomeActivity).et_search.visibility = View.GONE
             findNavController().navigate(R.id.action_homeFragment2_to_galleryFragment)
         }
+
+        updateMapWithLocationWithPermissionCheck()
     }
 
     private fun createGetAddressRequest(): JsonObject {
@@ -147,15 +159,18 @@ class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
     }
 
     private fun setUpTrendingViewPager(packageList: ArrayList<PackagesItem>) {
+        var layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
         trendingViewPagerAdapter = TrendingPagerAdapter(packageList, requireActivity(),this)
+        trending_slider.layoutManager = layoutManager
         trending_slider.adapter = trendingViewPagerAdapter
-
-        val zoomOutPageTransformer = ZoomOutPageTransformer()
-        trending_slider.setPageTransformer { page, position ->
-            zoomOutPageTransformer.transformPage(page, position)
-        }
     }
 
+    var currentPage = 0
+    var timer: Timer? = null
+    val DELAY_MS: Long = 1000
+    val PERIOD_MS: Long = 4000
+
+    @SuppressLint("SuspiciousIndentation")
     private fun setUpViewPager(offers: ArrayList<OffersItem>) {
         offerPagerAdapter = OfferPagerAdapter(offers, requireActivity())
         offer_slider.adapter = offerPagerAdapter
@@ -167,6 +182,30 @@ class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
 
         offer_indicator.attachTo(offer_slider)
         offer_indicator.attachTo(offer_slider)
+
+        try {
+            val handler = Handler()
+            val update = Runnable {
+                if (currentPage == offers.size) {
+                    currentPage = 0
+                }
+                if(offer_slider != null)
+                    if(currentPage == offers.size){
+                        offer_slider.setCurrentItem(0, true)
+                    }else {
+                        offer_slider.setCurrentItem(currentPage++, true)
+                    }
+            }
+
+            Timer().schedule(object : TimerTask() {
+                // task to be scheduled
+                override fun run() {
+                    handler.post(update)
+                }
+            }, 3500, 3500)
+        }catch (e: java.lang.Exception){
+            e.printStackTrace()
+        }
     }
 
     private fun setUpCategoryAdapter(categoriesList: ArrayList<CategoriesItem>) {
@@ -245,7 +284,7 @@ class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
         viewModel.getAddressResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_categories)
+                //Utils.showSnackBar(getString(R.string.please_try_ahain), rv_categories)
             } else {
                 (requireActivity() as HomeActivity).txt_location.text = it?.addresslist?.street
             }
@@ -313,5 +352,14 @@ class HomeFragment : Fragment(), CategoryItemClicked, PackageItemClicked {
     override fun onPackageItemClicked(position: Int) {
         Constants.SELECTED_PACKAGE_ID = packageList[position].id?:"0"
         findNavController().navigate(R.id.action_homeFragment2_to_packageDetailsFragment)
+    }
+
+    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+    fun updateMapWithLocation(){
+        findCurrentLocation()
+    }
+
+    private fun findCurrentLocation() {
+        Log.e("asass","cccc")
     }
 }

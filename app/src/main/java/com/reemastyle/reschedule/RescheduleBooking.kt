@@ -22,8 +22,8 @@ import com.google.gson.JsonObject
 import com.reemastyle.HomeActivity
 import com.reemastyle.R
 import com.reemastyle.cart.AddToCartModel
-import com.reemastyle.model.cart.ItemsItem
-import com.reemastyle.model.cart.OptionsItem
+import com.reemastyle.model.history.ItemsItem
+import com.reemastyle.model.history.OptionsItem
 import com.reemastyle.model.slots.SlotsItem
 import com.reemastyle.service.ServiceDetailFragment
 import com.reemastyle.util.Utils
@@ -68,7 +68,7 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
 
     private fun getBundledData() {
         if (arguments != null) {
-            var data = arguments?.getString("cartItem")
+            var data = arguments?.getString("bookingData")
             cartItemData = Gson().fromJson(data, ItemsItem::class.java)
             setUpData(cartItemData)
         }
@@ -81,21 +81,21 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
             || cartItemData?.categoryName!!.trim() == "الجبهة الساق" || cartItemData?.categoryName!!.trim() == "اليد الأمامية"
             || cartItemData?.categoryName!! == "اليد الأمامية والخلفية" || cartItemData?.categoryName!!.trim() == "أمامي وخلفي الساق" ){
 
-            txt_service_size.text = "Heena, " + cartItemData?.categoryName
-            txt_price.text = "QAR ${((cartItemData?.subtotal?:"0.0").toDouble())/((cartItemData?.qty?:"0.0").toDouble())}"
+            txt_service_size.text = "${getString(R.string.heena)}, " + cartItemData?.categoryName
+            txt_price.text = "${getString(R.string.currency_value)} ${((cartItemData?.subtotal?:"0.0").toDouble())/((cartItemData?.qty?:"0.0").toDouble())}"
             txt_quantity.text = cartItemData?.qty
 
-            txt_total.text = "QAR ${cartItemData?.totalAmount}"
+            txt_total.text = "${getString(R.string.currency_value)} ${cartItemData?.totalAmount}"
             heenaPrice =((cartItemData?.subtotal?:"0.0").toDouble())/((cartItemData?.qty?:"0.0").toDouble())
         }else {
             txt_service_size.text = cartItemData?.subcategoryName + ", " + cartItemData?.servicename
-            txt_price.text = "QAR ${cartItemData?.serviceprice ?: "0.0"}"
+            txt_price.text = "${getString(R.string.currency_value)} ${cartItemData?.servicePrice ?: "0.0"}"
             txt_quantity.text = cartItemData?.serviceQty
 
             var totalAmount =
-                (((cartItemData?.serviceprice ?: "0.0").toDouble()) * ((cartItemData?.serviceQty
+                (((cartItemData?.servicePrice ?: "0.0").toDouble()) * ((cartItemData?.serviceQty
                     ?: "0.0").toDouble()))
-            txt_total.text = "QAR "+(totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
+            txt_total.text = "${getString(R.string.currency_value)} "+(totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
             cartItemData?.totalAmount = (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble())
         }
         txt_date.text = cartItemData?.orderDate ?: ""
@@ -113,8 +113,11 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
     private fun createGetTimeSlotRequest(): JsonObject {
         var jsonObject = JsonObject()
         jsonObject.addProperty("action","gettimeslots")
-        if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front") {
+        if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front"
+            || cartItemData?.categoryName!!.trim() == "الجبهة الساق" || cartItemData?.categoryName!!.trim() == "اليد الأمامية"
+            || cartItemData?.categoryName!! == "اليد الأمامية والخلفية" || cartItemData?.categoryName!!.trim() == "أمامي وخلفي الساق" ){
             jsonObject.addProperty("subcatID",cartItemData?.categoryId)
+            jsonObject.addProperty("type","heena")
         }else{
             jsonObject.addProperty("subcatID",cartItemData?.subcategoryId)
         }
@@ -156,7 +159,9 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
         }
 
         img_add.setOnClickListener {
-            if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front") {
+            if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front"
+                || cartItemData?.categoryName!!.trim() == "الجبهة الساق" || cartItemData?.categoryName!!.trim() == "اليد الأمامية"
+                || cartItemData?.categoryName!! == "اليد الأمامية والخلفية" || cartItemData?.categoryName!!.trim() == "أمامي وخلفي الساق" ){
                 cartItemData?.qty = ((cartItemData?.qty ?: "0").toInt() + 1).toString()
                 txt_quantity.text = cartItemData?.qty
             }else {
@@ -167,7 +172,9 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
         }
 
         img_minus.setOnClickListener {
-            if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front") {
+            if(cartItemData?.categoryName!!.trim() == "Leg front" || cartItemData?.categoryName!!.trim() == "Leg front and back"||cartItemData?.categoryName!!.trim() == "Hand front and back"||cartItemData?.categoryName!!.trim() == "Hand front"
+                || cartItemData?.categoryName!!.trim() == "الجبهة الساق" || cartItemData?.categoryName!!.trim() == "اليد الأمامية"
+                || cartItemData?.categoryName!! == "اليد الأمامية والخلفية" || cartItemData?.categoryName!!.trim() == "أمامي وخلفي الساق" ){
                 if((cartItemData?.qty?:"0").toInt()>1){
                     cartItemData?.qty = ((cartItemData?.qty?:"0").toInt()-1).toString()
                 }
@@ -214,15 +221,15 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
             var totalAmount = (heenaPrice * ((cartItemData?.qty
                     ?: "0.0").toDouble()))
             txt_total.text =
-                "QAR " + (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
+                "${getString(R.string.currency_value)} " + (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
             cartItemData?.totalAmount =
                 (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble())
         }else {
             var totalAmount =
-                (((cartItemData?.serviceprice ?: "0.0").toDouble()) * ((cartItemData?.serviceQty
+                (((cartItemData?.servicePrice ?: "0.0").toDouble()) * ((cartItemData?.serviceQty
                     ?: "0.0").toDouble()))
             txt_total.text =
-                "QAR " + (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
+                "${getString(R.string.currency_value)} " + (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble()).toString()
             cartItemData?.totalAmount =
                 (totalAmount + (cartItemData?.homeservice ?: "0.0").toDouble())
         }
@@ -282,8 +289,8 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
     }
 
     private val singleDayPickCallback = SingleDayPickCallback { singleDay ->
-        var date = Utils.getFormattedCurrentDateValue(singleDay.longDateString)
-        Log.e("date_value", singleDay.longDateString)
+        var date = Utils.getFormattedCurrentDateValue(singleDay.shortDateString)
+        Log.e("date_value", singleDay.shortDateString)
         txt_date.text = date
         cartItemData?.orderDate = date
     }
@@ -312,7 +319,7 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
         jsonObject.addProperty("totalAmount",cartItemData?.totalAmount)
         jsonObject.addProperty("servicesid",cartItemData?.servicesID)
         jsonObject.addProperty("servicesqty",cartItemData?.serviceQty)
-        jsonObject.addProperty("service_price",cartItemData?.serviceprice)
+        jsonObject.addProperty("service_price",cartItemData?.servicePrice)
         jsonObject.addProperty("order_date",cartItemData?.orderDate)
         return jsonObject
     }
@@ -321,7 +328,7 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
         viewModel.updateCartResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), clAddressHome)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), clAddressHome)
             } else {
                 Utils.showSnackBar(it?.message ?: "", clAddressHome)
                 (requireActivity() as HomeActivity).onBackPressed()
@@ -331,7 +338,7 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
         viewModel.timeSlotsResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), clAddressHome)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), clAddressHome)
             } else {
                 if(it?.slots?.isNullOrEmpty() == false){
                     slotList.clear()
@@ -366,15 +373,15 @@ class RescheduleBooking : Fragment(), com.reemastyle.service.TimeSlotSelected {
 
     private var selectedTime = "00:00:00"
     private fun compareDateAndTime(): Int{
-        selectedTime = selectedTime.replace(" ",":")
-        if(selectedTime.contains("AM") || selectedTime.contains("am")){
-            selectedTime = selectedTime.replace("AM","00")
-            selectedTime = selectedTime.replace("am","00")
-        }
-        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
-            selectedTime = selectedTime.replace("PM","00")
-            selectedTime = selectedTime.replace("pm","00")
-        }
+        selectedTime = Utils.getTimeIn24HoursFormat(selectedTime)
+//        if(selectedTime.contains("AM") || selectedTime.contains("am")){
+//            selectedTime = selectedTime.replace("AM","00")
+//            selectedTime = selectedTime.replace("am","00")
+//        }
+//        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
+//            selectedTime = selectedTime.replace("PM","00")
+//            selectedTime = selectedTime.replace("pm","00")
+//        }
         var date = "${cartItemData?.orderDate} $selectedTime"
         return Utils.compareDateTimeForSlots(date)
     }

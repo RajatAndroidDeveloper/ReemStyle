@@ -33,7 +33,7 @@ class CategoriesAdapter(
             holder.layout.img_category.setPadding(55)
         } else {
             if (!categoryList[position].image.isNullOrEmpty())
-                Glide.with(context).load(categoryList[position].image)
+                Glide.with(context).load(categoryList[position].image).placeholder(R.drawable.cate_dummy)
                     .into(holder.layout.img_category)
             holder.layout.txt_category_title.text = categoryList[position].catName
         }

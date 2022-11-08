@@ -17,7 +17,10 @@ data class ServicesResponse(
 	val storeaddress: Storeaddress? = null,
 
 	@field:SerializedName("status")
-	val status: Boolean? = null
+	val status: Boolean? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
 data class ServicesItem(
@@ -39,6 +42,9 @@ data class ServicesItem(
 
 	@field:SerializedName("price")
 	val price: String? = null,
+
+	@field:SerializedName("discription")
+	val discription: String? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,

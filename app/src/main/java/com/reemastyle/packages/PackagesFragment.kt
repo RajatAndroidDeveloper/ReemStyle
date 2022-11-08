@@ -60,7 +60,7 @@ class PackagesFragment : Fragment(), PackageItemClicked {
         viewModel.packageResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_packages)
+                Utils.showSnackBar(it.message?:getString(R.string.please_try_ahain), rv_packages)
             } else {
                 if(it?.packages?.isNullOrEmpty() == false){
                     packageList =  it?.packages  as ArrayList<PackagesItem> /* = java.util.ArrayList<com.reemastyle.model.packages.PackagesItem> */

@@ -90,7 +90,7 @@ class CategoriesFragment : Fragment(), CategoryItemClicked {
         viewModel.categoriesResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if(it.status == false){
-                Utils.showSnackBar(getString(R.string.please_try_ahain),rv_categories)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain),rv_categories)
             }else {
                 if(it?.allCategories?.isNullOrEmpty() == false){
                     categoryList = it?.allCategories as ArrayList<AllCategoriesItem> /* = java.util.ArrayList<com.reemastyle.model.categories.AllCategoriesItem> */

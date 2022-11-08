@@ -31,6 +31,7 @@ import com.reemastyle.bookings.BookingsFragment
 import com.reemastyle.cart.CartFragment
 import com.reemastyle.home.HomeFragment
 import com.reemastyle.home.HomeViewModel
+import com.reemastyle.packages.PackageDetailsFragment
 import com.reemastyle.profile.ProfileFragment
 import com.reemastyle.service.ServiceDetailFragment
 import com.reemastyle.service.SubCategoryFragment
@@ -58,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
 
         if(Utils.getUserData()?.profImage?.isNullOrEmpty() == false){
             Log.e("xsddddsdsdsd",Utils.getUserData()?.profImage?:"wdd")
-            Glide.with(this).load(Constants.PROFILE_IMAGE_BASE_PATH+""+Utils.getUserData()?.profImage).into(img_profile)
+            Glide.with(this).load(Utils.getUserData()?.profImage).placeholder(R.drawable.ic_dummy_profile).into(img_profile)
         }
         onClickListeners()
         //updateMapWithLocationWithPermissionCheck()
@@ -161,8 +162,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    fun updateProfilePicture(){
+        if(Utils.getUserData()?.profImage?.isNullOrEmpty() == false){
+            Log.e("xsddddsdsdsd",Utils.getUserData()?.profImage?:"wdd")
+            Glide.with(this).load(Utils.getUserData()?.profImage).placeholder(R.drawable.ic_dummy_profile).into(img_profile)
+        }
     }
 
     override fun onBackPressed() {
@@ -178,7 +182,11 @@ class HomeActivity : AppCompatActivity() {
             bottom_menu.visibility = View.VISIBLE
             et_search.visibility = View.GONE
         }
-        if(getForegroundFragment() is CartFragment || getForegroundFragment() is ServiceDetailFragment){
+        if(getForegroundFragment() is CartFragment){
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        }
+        if(getForegroundFragment() is ServiceDetailFragment){
             toolbar.visibility  = View.VISIBLE
             bottom_menu.visibility = View.VISIBLE
             et_search.visibility = View.GONE

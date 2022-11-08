@@ -141,8 +141,8 @@ object Utils {
     fun getFormattedTimeValue(dateCal: String): String {
         var cal = ""
         try {
-            val dateFormat1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale(Preferences.prefs?.getString("Language","en")))
-            val dateFormat2 = SimpleDateFormat("hh:mm a", Locale(Preferences.prefs?.getString("Language","en")))
+            val dateFormat1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale(Preferences.prefs?.getString("Language","en")))
+            val dateFormat2 = SimpleDateFormat("EEEE, dd MMM yyyy", Locale(Preferences.prefs?.getString("Language","en")))
             val date = dateFormat1.parse(dateCal)
             cal = dateFormat2.format(date)
 
@@ -209,11 +209,25 @@ object Utils {
     fun getFormattedTimeForCart(dateCal: String): String {
         var cal = ""
         try {
-            var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            var sdf = SimpleDateFormat("H:mm")
             var date = sdf.parse(dateCal)
-            val dateFormat2 = SimpleDateFormat("hh:mm a", Locale(Preferences.prefs?.getString("Language","en")))
+            val dateFormat2 = SimpleDateFormat("kk:mm:ss", Locale(Preferences.prefs?.getString("Language","en")))
             cal = dateFormat2.format(date)
+            Log.e("Asasassas",cal+"Ss")
         } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return cal
+    }
+
+    fun getTimeIn24HoursFormat(time: String): String{
+        var cal = ""
+        try{
+            val date12Format = SimpleDateFormat("hh:mm a")
+            val date24Format = SimpleDateFormat("HH:mm")
+            cal = date24Format.format(date12Format.parse(time))
+            Log.e("asaasasa",cal+"sd")
+        }catch (e: java.lang.Exception){
             e.printStackTrace()
         }
         return cal
@@ -234,7 +248,7 @@ object Utils {
      fun compareDateTimeForSlots(date: String) : Int{
         var result = 0
         try {
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
             val parsed = sdf.parse(date)
             val now = Date(System.currentTimeMillis()) // 2016-03-10 22:06:10
             Log.e("comparision result",(parsed.compareTo(now)).toString())
@@ -242,7 +256,6 @@ object Utils {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-
         return result
     }
 

@@ -440,7 +440,6 @@
                         android:layout_marginRight="@dimen/_15sdp"
                         android:fontFamily="@font/montserrat_bold"
                         android:maxLines="1"
-                        android:text="@string/home_text"
                         android:textColor="@color/text_dark_grey"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="parent"

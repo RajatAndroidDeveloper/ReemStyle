@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_semibold"
         android:text="15 April 2022"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="@dimen/_14ssp"
@@ -34,7 +35,7 @@
 
         <ImageView
             android:id="@+id/img_option_menu"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_25sdp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/ic_dotted_menu"

@@ -3,12 +3,13 @@ package com.reemastyle.profile
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.reemastyle.api.MyViewModel
+import com.reemastyle.model.login.LoginResponse
 import com.reemastyle.model.profile.ProfileResponse
 import okhttp3.RequestBody
 
 class ProfileViewModel: MyViewModel() {
     var profileResponse = MutableLiveData<ProfileResponse>()
-    var updateProfileResponse = MutableLiveData<ProfileResponse>()
+    var updateProfileResponse = MutableLiveData<LoginResponse>()
     var changePasswordResponse = MutableLiveData<ProfileResponse>()
 
     fun getProfile(map: JsonObject) {

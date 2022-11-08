@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.reemastyle.api.ApiFailureTypes
 import com.reemastyle.api.ApiHelper
 import com.reemastyle.api.RestClient
+import com.reemastyle.model.login.LoginResponse
 import com.reemastyle.model.profile.ProfileResponse
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -107,7 +108,7 @@ object ProfileRepository {
     }
 
     fun updateProfile(
-        successHandler: (ProfileResponse) -> Unit,
+        successHandler: (LoginResponse) -> Unit,
         failureHandler: (String) -> Unit,
         unauthorized: (Boolean) -> Unit,
         image: RequestBody,
@@ -119,10 +120,10 @@ object ProfileRepository {
         action: RequestBody
     ) {
         webService.updateProfile(image,name,email,countryCode,mobile,id,action).enqueue(object :
-            Callback<ProfileResponse> {
+            Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<ProfileResponse>,
-                response: Response<ProfileResponse>
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
             ) {
                 response?.body()?.let {
                     successHandler(it)
@@ -150,7 +151,7 @@ object ProfileRepository {
 
             }
 
-            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 t.message?.let { Log.d("Error", it) }
 
                 t.let {

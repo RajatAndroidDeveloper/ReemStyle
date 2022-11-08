@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,22 +18,21 @@ import com.reemastyle.model.heenadetail.HeenaSectionItem
 import com.reemastyle.preferences.Preferences
 import com.reemastyle.service.ServiceViewModel
 import com.reemastyle.util.Constants
-import com.reemastyle.util.Constants.SELECTED_SUB_CATEGORY_NAME
 import com.reemastyle.util.Utils
 import kotlinx.android.synthetic.main.fragment_heena_detail.*
 import kotlinx.android.synthetic.main.fragment_update_profile.*
 
-class HeenaDetailFragment : Fragment() {
+class HeenaHandFrontBackFragment : Fragment() {
     lateinit var viewModel: ServiceViewModel
     private var heenaDetailList: ArrayList<HeenaSectionItem> = ArrayList<HeenaSectionItem>()
-    private var selectedHeena: HeenaSectionItem ?= null
+    private var selectedHeena: HeenaSectionItem?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_heena_detail, container, false)
+        return inflater.inflate(R.layout.fragment_heena_hand_front_back_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,9 +63,9 @@ class HeenaDetailFragment : Fragment() {
                 return@setOnClickListener
             }else{
                 var bundle = Bundle()
-                bundle.putString("heena_data",Gson().toJson(selectedHeena))
-                bundle.putString("heena_details",Gson().toJson(heenaDetailResponse))
-                findNavController().navigate(R.id.action_heenaDetailFragment_to_bookHeenaFragment, bundle)
+                bundle.putString("heena_data", Gson().toJson(selectedHeena))
+                bundle.putString("heena_details", Gson().toJson(heenaDetailResponse))
+                findNavController().navigate(R.id.action_heenaHandFrontBackFragment_to_bookHeenaFragment, bundle)
             }
         }
         img_1.setOnClickListener {
@@ -123,7 +121,7 @@ class HeenaDetailFragment : Fragment() {
     }
 
     private fun changeImageResources() {
-        if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
+        if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -266,7 +264,7 @@ class HeenaDetailFragment : Fragment() {
                     img_10.setImageResource(R.drawable.leg_10)
                 }
             }
-        }else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
+        }else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -409,7 +407,7 @@ class HeenaDetailFragment : Fragment() {
                     img_10.setImageResource(R.drawable.leg_01_01)
                 }
             }
-        } else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" )  {
+        } else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" )  {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -552,7 +550,7 @@ class HeenaDetailFragment : Fragment() {
                     img_10.setImageResource(R.drawable.hand_03)
                 }
             }
-        }else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق")  {
+        }else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق")  {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -698,8 +696,9 @@ class HeenaDetailFragment : Fragment() {
         }
     }
 
-    private fun hidePricingData(ll1: LinearLayout, ll2: LinearLayout,ll3: LinearLayout,ll4: LinearLayout,ll5: LinearLayout,ll6: LinearLayout,ll7: LinearLayout,ll8: LinearLayout,ll9: LinearLayout,
-                                txt1: TextView,txt2: TextView,txt3: TextView,txt4: TextView,txt5: TextView,txt6: TextView,txt7: TextView,txt8: TextView,txt9: TextView){
+    private fun hidePricingData(ll1: LinearLayout, ll2: LinearLayout, ll3: LinearLayout, ll4: LinearLayout, ll5: LinearLayout, ll6: LinearLayout, ll7: LinearLayout, ll8: LinearLayout, ll9: LinearLayout,
+                                txt1: TextView, txt2: TextView, txt3: TextView, txt4: TextView, txt5: TextView, txt6: TextView, txt7: TextView, txt8: TextView, txt9: TextView
+    ){
         ll1.setBackgroundResource(R.drawable.rounded_gradient_bg)
         ll2.background = null
         ll3.background = null
@@ -729,7 +728,7 @@ class HeenaDetailFragment : Fragment() {
     }
 
     private fun changeDataAccordingToCategory() {
-        if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
+        if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
             img_1.setImageResource(R.drawable.leg_1)
             img_2.setImageResource(R.drawable.leg_2)
             img_3.setImageResource(R.drawable.leg_3)
@@ -740,7 +739,7 @@ class HeenaDetailFragment : Fragment() {
             img_8.setImageResource(R.drawable.leg_8)
             img_9.setImageResource(R.drawable.leg_9)
             img_10.setImageResource(R.drawable.leg_10)
-        } else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
+        } else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
             img_1.setImageResource(R.drawable.leg_01_10)
             img_2.setImageResource(R.drawable.leg_01_09)
             img_3.setImageResource(R.drawable.leg_01_08)
@@ -751,7 +750,7 @@ class HeenaDetailFragment : Fragment() {
             img_8.setImageResource(R.drawable.leg_01_03)
             img_9.setImageResource(R.drawable.leg_01_02)
             img_10.setImageResource(R.drawable.leg_01_01)
-        } else if((SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front") || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" ) {
+        } else if((Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front") || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" ) {
             img_1.setImageResource(R.drawable.hand_13)
             img_2.setImageResource(R.drawable.hand_12)
             img_3.setImageResource(R.drawable.hand_11)
@@ -762,7 +761,7 @@ class HeenaDetailFragment : Fragment() {
             img_8.setImageResource(R.drawable.hand_06)
             img_9.setImageResource(R.drawable.hand_05)
             img_10.setImageResource(R.drawable.hand_03)
-        } else if((SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back") || SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق" ) {
+        } else if((Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back") || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق" ) {
             img_1.setImageResource(R.drawable.h4_13)
             img_2.setImageResource(R.drawable.h4_12)
             img_3.setImageResource(R.drawable.h4_11)
@@ -821,5 +820,4 @@ class HeenaDetailFragment : Fragment() {
             }
         })
     }
-
 }

@@ -138,11 +138,11 @@
     <string name="please_go_back_and_select_heena_option">يرجى العودة وتحديد خيار هينا</string>
     <string name="this_slot_is_not_available">هذه الفتحة غير متوفرة الرجاء تحديد أخرى.</string>
     <string name="heena">هينا</string>
-    <string name="our_staff_will_come">موظفينا يأتون معك</string>
+    <string name="our_staff_will_come">سيقوم موظفينا بزيارة منزلك</string>
     <string name="add_new_address">أضف تفاصيل العنوان الجديد</string>
     <string name="villa_number_flat_number">رقم الفيلا / رقم الشقة</string>
     <string name="address_type">نوع العنوان</string>
-    <string name="shop_text">قم بزيارة المتجر</string>
+    <string name="shop_text">زيارة الصالون</string>
     <string name="home_text">مسكن</string>
     <string name="please_select_timeslot_and_date_again">يرجى تحديد وقت أو تاريخ آخر للفتحة لأن هذا غير متاح.</string>
     <string name="add_more_items">أضف المزيد من العناصر</string>
@@ -157,4 +157,10 @@
     <string name="new_text">جديد</string>
     <string name="am_text">صباحا</string>
     <string name="pm_text">مساءً</string>
+    <string name="location_permisssion">Please allow for location permissions</string>
+    <string name="permission_denied_explanation">Location permission denied it will cause difficulty in location updation.</string>
+    <string name="settings">Settings</string>
+    <string name="location_permission_required">Location permission required</string>
+    <string name="search_for_location">ابحث عن الموقع</string>
+    <string name="data_updated_successfully">Data has been updated successfully</string>
 </resources>

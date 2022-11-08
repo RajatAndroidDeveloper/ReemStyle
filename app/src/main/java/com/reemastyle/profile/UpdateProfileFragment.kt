@@ -25,7 +25,9 @@ import com.reemastyle.preferences.getValue
 import com.reemastyle.preferences.saveValue
 import com.reemastyle.util.Constants
 import com.reemastyle.util.Utils
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_update_profile.*
+import kotlinx.android.synthetic.main.fragment_update_profile.img_profile1
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.apache.commons.io.IOUtils
@@ -71,7 +73,7 @@ class UpdateProfileFragment : Fragment() {
             (requireActivity() as HomeActivity).onBackPressed()
         }
 
-        img_profile.setOnClickListener {
+        img_profile1.setOnClickListener {
             Utils.callImagePickerIntent(requireActivity())
         }
 
@@ -136,7 +138,7 @@ class UpdateProfileFragment : Fragment() {
                         )
                         val outputStream = FileOutputStream(imageFile)
                         IOUtils.copy(inputStream, outputStream)
-                        img_profile.setImageURI(Uri.parse(imageFile.toString()))
+                        img_profile1.setImageURI(Uri.parse(imageFile.toString()))
                     }
                 }
             }
@@ -151,25 +153,27 @@ class UpdateProfileFragment : Fragment() {
             if (it.status == true) {
                 setUpProfileData(it.profileData)
             } else {
-                Utils.showSnackBar(it.message ?: "Please try again later", img_back)
+                Utils.showSnackBar(it.message ?: getString(R.string.please_try_ahain), img_back)
             }
         })
 
         viewModel.updateProfileResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == true) {
-                Utils.showSnackBar(it.message ?: "Data has been updated successfully", img_back)
-                var jsonData = Preferences.prefs?.getValue(Constants.USER_INFO,"")
-                var loginResponse: LoginResponse = Gson().fromJson(jsonData, LoginResponse::class.java)
-                loginResponse?.userdata?.profImage = it?.profileData?.profImage
-                loginResponse?.userdata?.name = it?.profileData?.name
-                loginResponse?.userdata?.email = it?.profileData?.email
-                loginResponse?.userdata?.ext = it?.profileData?.ext
-                loginResponse?.userdata?.phone = it?.profileData?.phone
-                Preferences.prefs?.saveValue(Constants.USER_INFO,Gson().toJson(loginResponse))
+                Utils.showSnackBar(it.message ?: getString(R.string.data_updated_successfully), img_back)
+//                var jsonData = Preferences.prefs?.getValue(Constants.USER_INFO,"")
+//                var loginResponse: LoginResponse = Gson().fromJson(jsonData, LoginResponse::class.java)
+//
+//                loginResponse?.userdata?.profImage = it?.profileData?.profImage
+//                loginResponse?.userdata?.name = it?.profileData?.name
+//                loginResponse?.userdata?.email = it?.profileData?.email
+//                loginResponse?.userdata?.ext = it?.profileData?.ext
+//                loginResponse?.userdata?.phone = it?.profileData?.phone
+
+                Preferences.prefs?.saveValue(Constants.USER_INFO,Gson().toJson(it))
                 requireActivity().onBackPressed()
             } else {
-                Utils.showSnackBar(it.message ?: "Please try again later", img_back)
+                Utils.showSnackBar(it.message ?: getString(R.string.please_try_ahain), img_back)
             }
         })
 
@@ -208,15 +212,11 @@ class UpdateProfileFragment : Fragment() {
         txt_name.setText(profileData?.name ?: "")
         txt_email.setText(profileData?.email ?: "")
         txt_mobile.setText("${profileData?.phone}")
-        countryCodePicker.setDefaultCountryUsingPhoneCode(
-            (profileData?.ext ?: "+91").replace(
-                "+",
-                ""
-            ).toInt()
+        countryCodePicker.setDefaultCountryUsingPhoneCode((profileData?.ext ?: "+91").replace("+", "").toInt()
         )
         if (!profileData?.profImage.isNullOrEmpty())
             Glide.with(requireActivity()).load(profileData?.profImage)
-                .placeholder(R.drawable.ic_dummy_profile).into(img_profile)
+                .placeholder(R.drawable.ic_dummy_profile).into(img_profile1)
     }
 
     companion object {

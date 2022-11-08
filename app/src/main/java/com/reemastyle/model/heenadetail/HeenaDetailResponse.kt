@@ -17,6 +17,9 @@ data class HeenaDetailResponse(
 
     @field:SerializedName("storeaddress")
     val storeaddress: Storeaddress? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null
 )
 
 data class HeenaSectionItem(

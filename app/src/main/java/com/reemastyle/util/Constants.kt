@@ -1,8 +1,14 @@
 package com.reemastyle.util
 
+import android.location.Address
+import com.google.android.libraries.places.api.model.Place
 import java.util.regex.Pattern
 
 object Constants {
+    var PLACE_DATA: Place ?= null
+    var LATITUDE = 0.0
+    var LONGITUDE = 0.0
+    var ADDRESS = ""
     var PHONE_NUMBER = ""
     var COUNTRY_CODE = ""
     var LOGIN_TYPE = ""
@@ -14,7 +20,7 @@ object Constants {
     var SELECTED_SUB_CATEGORY_NAME = ""
     var SELECTED_SUB_CATEGORY = 0
     var SELECTED_PACKAGE_ID = "0"
-    const val MAP_API_KEY = "AIzaSyCv0uIHXE3xqWIPIxQOiBbp0g3Ll658LjY"
+    const val MAP_API_KEY = "AIzaSyDSlYn62A_SunI7aMLUNoGrN3MiEsOqVhI"
     val EMAIL_ADDRESS_PATTERN = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +

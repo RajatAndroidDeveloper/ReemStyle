@@ -71,6 +71,21 @@ class PackageDetailsFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(PackageViewModel::class.java)
+        addToCartModel = ViewModelProviders.of(this).get(AddToCartModel::class.java)
+
+
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("action", "package_detail")
+        jsonObject.addProperty("userid", Utils.getUserData()?.id)
+        jsonObject.addProperty("package_id", Constants.SELECTED_PACKAGE_ID)
+        if(Preferences.prefs?.getString("Language","en") == "ar"){
+            jsonObject.addProperty("lang","AR")
+        }else{
+            jsonObject.addProperty("lang","EN")
+        }
+        viewModel?.getPackageDetail(jsonObject)
     }
 
     override fun onCreateView(
@@ -90,19 +105,7 @@ class PackageDetailsFragment : Fragment(),
         clickListeners()
         getCurrentDate()
 
-        viewModel = ViewModelProviders.of(this).get(PackageViewModel::class.java)
-        addToCartModel = ViewModelProviders.of(this).get(AddToCartModel::class.java)
         attachObservers()
-        var jsonObject = JsonObject()
-        jsonObject.addProperty("action", "package_detail")
-        jsonObject.addProperty("userid", Utils.getUserData()?.id)
-        jsonObject.addProperty("package_id", Constants.SELECTED_PACKAGE_ID)
-        if(Preferences.prefs?.getString("Language","en") == "ar"){
-            jsonObject.addProperty("lang","AR")
-        }else{
-            jsonObject.addProperty("lang","EN")
-        }
-        viewModel?.getPackageDetail(jsonObject)
     }
 
     private fun clickListeners() {
@@ -228,26 +231,29 @@ class PackageDetailsFragment : Fragment(),
         viewModel.packageDetailsResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), img_add)
+                Utils.showSnackBar(it.message?:getString(R.string.please_try_ahain), img_add)
             } else {
-                setUpPackageDetailsData(it?.packagedata)
-                if(it?.slots?.isNullOrEmpty() == false){
-                    slotList = it?.slots as ArrayList<SlotsItem>
-                    setUpTimeSlotAdapter(slotList)
+                try {
+                    setUpPackageDetailsData(it?.packagedata)
+                    if (it?.slots?.isNullOrEmpty() == false) {
+                        slotList = it?.slots as ArrayList<SlotsItem>
+                        setUpTimeSlotAdapter(slotList)
+                    }
+                    homeAddress = it?.useraddress
+                    storeAddress = it?.storeaddress
+                }catch (e: Exception){
+                    e.printStackTrace()
                 }
-                homeAddress = it?.useraddress
-                storeAddress = it?.storeaddress
             }
         })
 
         addToCartModel.addToCartResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), img_add)
+                Utils.showSnackBar(it.message?:getString(R.string.please_try_ahain), img_add)
             } else {
                 Utils.showSnackBar(it.message?:getString(R.string.data_added_ion_cart), img_add)
-                startActivity(Intent(requireActivity(),HomeActivity::class.java))
-                (requireActivity() as HomeActivity).finish()
+                findNavController().navigate(R.id.action_packageDetailsFragment_to_cartFragment)
             }
         })
 
@@ -304,15 +310,20 @@ class PackageDetailsFragment : Fragment(),
     }
 
     private fun setUpPackageDetailsData(packagedata: Packagedata?) {
-        if (packagedata != null) {
-            packageDetails = packagedata
-            txt_title.text = packagedata?.packname
-            txt_package_name.text = packagedata?.discription
-            if (!packagedata?.image.isNullOrEmpty()) {
-                Glide.with(requireActivity()).load(packagedata?.image).into(img_package)
+        try {
+            if (packagedata != null) {
+                packageDetails = packagedata
+                txt_title.text = packagedata?.packname
+                txt_package_name.text = packagedata?.discription
+                if (!packagedata?.image.isNullOrEmpty()) {
+                    Glide.with(requireActivity()).load(packagedata?.image).into(img_package)
+                }
+                txt_package_price.text = "QAR ${packagedata?.price}"
+                txt_offerpackage_price.text =
+                    Utils.getFormatlistPrice("QAR" + " " + packagedata?.oldprice)
             }
-            txt_package_price.text = "QAR ${packagedata?.price}"
-            txt_offerpackage_price.text = Utils.getFormatlistPrice("QAR"+" "+packagedata?.oldprice)
+        }catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
@@ -398,16 +409,16 @@ class PackageDetailsFragment : Fragment(),
     }
 
     private fun compareDateAndTime(): Int{
-        selectedTime = selectedTime.replace(" ",":")
-        if(selectedTime.contains("AM") || selectedTime.contains("am")){
-            selectedTime = selectedTime.replace("AM","00")
-            selectedTime = selectedTime.replace("am","00")
-        }
-        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
-            selectedTime = selectedTime.replace("PM","00")
-            selectedTime = selectedTime.replace("pm","00")
-        }
-        var date = "$selectedDate $selectedTime"
+        selectedTime = Utils.getTimeIn24HoursFormat(selectedTime)
+//        if(selectedTime.contains("AM") || selectedTime.contains("am")){
+//            selectedTime = selectedTime.replace("AM","00")
+//            selectedTime = selectedTime.replace("am","00")
+//        }
+//        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
+//            selectedTime = selectedTime.replace("PM","00")
+//            selectedTime = selectedTime.replace("pm","00")
+//        }
+        var date = "${selectedDate} $selectedTime"
         return Utils.compareDateTimeForSlots(date)
     }
 }

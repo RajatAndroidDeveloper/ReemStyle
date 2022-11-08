@@ -106,7 +106,7 @@ class SignupFragment : Fragment() {
     private fun attachObservers() {
         viewModel.registerResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
-            Utils.showSnackBar(it.message?:"Otp has been sent on your email address.", et_email)
+            Utils.showSnackBar(it.message?:getString(R.string.otp_sent_successfully), et_email)
             if(it.status == true) {
                 Preferences.prefs?.saveValue(Constants.USER_INFO, Gson().toJson(it))
                 Preferences.prefs?.saveValue("email", et_email.text.toString().trim())

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,12 +19,11 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.fragment_select_location.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.util.*
+
 
 @RuntimePermissions
 class SelectLocationFragment : Fragment(), OnMapReadyCallback {
@@ -71,18 +72,39 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        (requireActivity() as HomeActivity).et_search.setText(getString(R.string.search_for_location))
+
         updateMapWithLocationWithPermissionCheck()
 
+        try {
+            findCurrentLocation()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+
         btn_confirm_location.setOnClickListener {
-            (requireActivity() as HomeActivity).toolbar.visibility  = View.VISIBLE
+            (requireActivity() as HomeActivity).toolbar.visibility = View.VISIBLE
             (requireActivity() as HomeActivity).et_search.visibility = View.GONE
             (requireActivity() as HomeActivity).bottom_menu.visibility = View.GONE
+            if (placeData != null) {
+                Constants.PLACE_DATA = placeData
+            }
+            Constants.LATITUDE = latitude
+            Constants.LONGITUDE = longitude
+            Constants.ADDRESS = txt_your_location.text.toString().trim()
             findNavController().navigate(R.id.action_selectLocationFragment_to_addressFragment)
         }
 
-        (requireActivity() as HomeActivity).et_search.setOnClickListener{
-            val fields = listOf(Place.Field.ID, Place.Field.NAME)
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(requireActivity())
+        (requireActivity() as HomeActivity).et_search.setOnClickListener {
+            val fields = listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.ADDRESS,
+                Place.Field.LAT_LNG,
+                Place.Field.ADDRESS_COMPONENTS
+            )
+            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                .build(requireActivity())
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
         }
 
@@ -90,7 +112,7 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
             findCurrentLocation()
         }
 
-        if(Constants.COMING_FROM == "add_address"){
+        if (Constants.COMING_FROM == "add_address") {
             (requireActivity() as HomeActivity).onBackPressed()
         }
     }
@@ -98,19 +120,22 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
 
-        if((requireActivity() as HomeActivity).getForegroundFragment() is SelectLocationFragment){
-            (requireActivity() as HomeActivity).toolbar.visibility  = View.VISIBLE
+        if ((requireActivity() as HomeActivity).getForegroundFragment() is SelectLocationFragment) {
+            (requireActivity() as HomeActivity).toolbar.visibility = View.VISIBLE
             (requireActivity() as HomeActivity).bottom_menu.visibility = View.GONE
             (requireActivity() as HomeActivity).et_search.visibility = View.VISIBLE
         }
     }
 
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-    fun updateMapWithLocation(){
+    @NeedsPermission(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+    fun updateMapWithLocation() {
         findCurrentLocation()
     }
 
-    private fun findCurrentLocation(){
+    private fun findCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -128,17 +153,26 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        fusedLocationClient?.lastLocation!!.addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful && task.result != null) {
-                var lastLocation = task.result
-                findFullAddress(lastLocation?.latitude,lastLocation?.longitude)
-                focusOnCurrentLocation(lastLocation?.latitude, lastLocation?.longitude)
-                Log.e("Select_Location_frag","Current location is ${lastLocation.longitude} ${lastLocation.latitude}")
+        fusedLocationClient?.lastLocation
+            ?.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    findFullAddress(location?.latitude, location?.longitude)
+                    latitude = location?.latitude
+                    longitude = location?.longitude
+                    Log.e(
+                        "asasasas",
+                        location?.latitude.toString() + "    vvvvv    " + location?.longitude.toString()
+                    )
+                    focusOnCurrentLocation(location?.latitude, location?.longitude)
+
+                    Log.e(
+                        "Select_Location_frag",
+                        "Current location is ${location.longitude} ${location.latitude}"
+                    )
+                } else {
+                    Log.w("Select_Location_frag", "getLastLocation:exception")
+                }
             }
-            else {
-                Log.w("Select_Location_frag", "getLastLocation:exception", task.exception)
-            }
-        }
     }
 
     private fun focusOnCurrentLocation(latitude: Double?, longitude: Double?) {
@@ -147,40 +181,48 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         builder.zoom(14f)
         builder.target(target)
         (googleMapHome)?.animateCamera(CameraUpdateFactory.newCameraPosition(builder.build()))
-        val markerOptions = MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_icon)).position(
-            LatLng(latitude?:0.0,longitude?:0.0)
-        )
-        markerOptions.visible(true)
-        googleMapHome?.addMarker(markerOptions)
+//        val markerOptions =
+//            MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker))
+//                .position(
+//                    LatLng(latitude ?: 0.0, longitude ?: 0.0)
+//                )
+//        markerOptions.visible(true)
+//        googleMapHome?.addMarker(markerOptions)
     }
 
-    private fun findFullAddress(latitude: Double?, longitude: Double?){
+    private fun findFullAddress(latitude: Double?, longitude: Double?) {
         try {
             var geocoder = Geocoder(requireActivity() as HomeActivity, Locale.getDefault())
             var addresses: List<Address> = geocoder.getFromLocation(latitude!!, longitude!!, 1)!!
-            val address = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-//        val city = addresses[0].locality
-//        val state = addresses[0].adminArea
-//        val country = addresses[0].countryName
-//        val postalCode = addresses[0].postalCode
-//        val knownName = addresses[0].featureName
+            val address =
+                addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             txt_your_location.text = address
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
+    var placeData: Place? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     data?.let {
-                        val place = Autocomplete.getPlaceFromIntent(data)
-                        Log.i("Select_loc_frag", "Place: ${place.name}, ${place.id}")
+                        placeData = Autocomplete.getPlaceFromIntent(data)
+                        txt_your_location.text = placeData?.address
+                        Log.i(
+                            "Select_loc_frag",
+                            "Place: ${placeData?.address}, ${placeData?.name}, ${placeData?.id}"
+                        )
+                        if (placeData?.latLng != null) {
+                            focusOnCurrentLocation(
+                                placeData?.latLng?.latitude,
+                                placeData?.latLng?.longitude
+                            )
+                        }
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
-                    // TODO: Handle the error.
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
                         Log.i("Select_loc_frag", status.statusMessage ?: "")
@@ -195,10 +237,30 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    private var latitude = 0.0
+    private var longitude = 0.0
     override fun onMapReady(p0: GoogleMap) {
         googleMapHome = p0
         googleMapHome?.clear()
         googleMapHome?.uiSettings?.isCompassEnabled = false
+        googleMapHome?.setOnCameraIdleListener(OnCameraIdleListener { //get latlng at the center by calling
+            val midLatLng: LatLng = googleMapHome?.cameraPosition?.target!!
+            googleMapHome?.clear()
+            if(midLatLng != null){
+//                val markerOptions =
+//                    MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker))
+//                        .position(
+//                            LatLng(midLatLng.latitude ?: 0.0, midLatLng.longitude ?: 0.0)
+//                        )
+//                markerOptions.visible(true)
+//                googleMapHome?.addMarker(markerOptions)
+
+                latitude = midLatLng.latitude
+                longitude = midLatLng.longitude
+                findFullAddress(midLatLng.latitude,midLatLng.longitude)
+            }
+            Log.e("asasasasasa","hasahjhasas ${midLatLng.latitude}    ${midLatLng.longitude}")
+        })
     }
 
     companion object {

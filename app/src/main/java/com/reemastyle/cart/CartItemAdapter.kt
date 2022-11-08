@@ -33,6 +33,8 @@ class CartItemAdapter(
             holder.layout.txt_time_value.text  = (cartData[position].orderSlotTime?:"").replace("AM", context.getString(R.string.am_text))
         }else if (Preferences.prefs?.getString("Language","en") == "ar" && (cartData[position].orderSlotTime?:"").contains("PM")){
             holder.layout.txt_time_value.text  = (cartData[position].orderSlotTime?:"").replace("PM", context.getString(R.string.pm_text))
+        }else{
+            holder.layout.txt_time_value.text  = (cartData[position].orderSlotTime?:"")
         }
 
         var homeServicePrice: Double  = 0.0

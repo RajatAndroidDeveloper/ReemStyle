@@ -20,6 +20,7 @@ import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primedatepicker.common.PickType
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
+import com.bumptech.glide.util.Util
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -59,6 +60,20 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(requireActivity())[ServiceViewModel::class.java]
+        addToCartModel = ViewModelProviders.of(requireActivity())[AddToCartModel::class.java]
+
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("action", "getservicesbysubcat")
+        jsonObject.addProperty("subcatID", Constants.SELECTED_SUB_CATEGORY)
+        jsonObject.addProperty("userid", Utils.getUserData()?.id)
+        if(Preferences.prefs?.getString("Language","en") == "ar"){
+            jsonObject.addProperty("lang","AR")
+        }else{
+            jsonObject.addProperty("lang","EN")
+        }
+        viewModel.getServices(jsonObject)
     }
 
     override fun onCreateView(
@@ -76,20 +91,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
         clickListeners()
         getCurrentDate()
 
-        viewModel = ViewModelProviders.of(this).get(ServiceViewModel::class.java)
-        addToCartModel = ViewModelProviders.of(this).get(AddToCartModel::class.java)
         attachObservers()
-
-        var jsonObject = JsonObject()
-        jsonObject.addProperty("action", "getservicesbysubcat")
-        jsonObject.addProperty("subcatID", Constants.SELECTED_SUB_CATEGORY)
-        jsonObject.addProperty("userid", Utils.getUserData()?.id)
-        if(Preferences.prefs?.getString("Language","en") == "ar"){
-            jsonObject.addProperty("lang","AR")
-        }else{
-            jsonObject.addProperty("lang","EN")
-        }
-        viewModel.getServices(jsonObject)
     }
 
     private fun clickListeners() {
@@ -107,7 +109,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
                 showLoginDialog(requireActivity())
                 return@setOnClickListener
             }
-            if (addToCartRequest.totalAmount == "0") {
+            if (addToCartRequest.totalAmount == "0" || addToCartRequest.totalAmount == "0.0") {
                 Utils.showSnackBar(getString(R.string.please_add_service), btn_book_now)
                 return@setOnClickListener
             }
@@ -227,88 +229,100 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
     }
 
     private fun attachObservers() {
-        viewModel.servicesResponse.observe(requireActivity(), androidx.lifecycle.Observer {
-            Utils.showLoading(false, requireActivity())
-            if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_time_slots)
-            } else {
-                storeAddress = it?.storeaddress
-                homeAddress = it?.useraddress
-                if(homeAddress != null){
-                    txt_home_address_value.text  = homeAddress?.street+", "+homeAddress?.zone+", "+homeAddress?.building
-                }
-                if(storeAddress != null){
-                    txt_shop_address_value.text  = storeAddress?.street+", "+storeAddress?.zone+", "+storeAddress?.building
-                }
-                if (it?.services?.isNullOrEmpty() == false) {
-                    servicesList = it?.services as ArrayList<ServicesItem> /* = java.util.ArrayList<com.reemastyle.model.services.ServicesItem> */
-                    setUpServiceAdapter(servicesList)
-
-                    txt_service.text = servicesList[0].subcatName
-                }
-
-                if(it?.slots?.isNullOrEmpty() == false){
-                    slotList = it?.slots as ArrayList<SlotsItem>
-                    setUpTimeSlotAdapter(slotList)
-                }
-            }
-        })
-
-        viewModel.apiError.observe(requireActivity(), androidx.lifecycle.Observer {
-            it?.let {
-                Utils.showSnackBar(it, rv_time_slots)
+        try {
+            viewModel.servicesResponse.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 Utils.showLoading(false, requireActivity())
-            }
-        })
+                if (it.status == false) {
+                    Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), rv_time_slots)
+                } else {
+                    storeAddress = it?.storeaddress
+                    homeAddress = it?.useraddress
+                    if (homeAddress != null) {
+                        txt_home_address_value.text =
+                            homeAddress?.street + ", " + homeAddress?.zone + ", " + homeAddress?.building
+                    }
+                    if (storeAddress != null) {
+                        txt_shop_address_value.text =
+                            storeAddress?.street + ", " + storeAddress?.zone + ", " + storeAddress?.building
+                    }
+                    if (it?.services?.isNullOrEmpty() == false) {
+                        servicesList =
+                            it?.services as ArrayList<ServicesItem> /* = java.util.ArrayList<com.reemastyle.model.services.ServicesItem> */
+                        setUpServiceAdapter(servicesList)
 
-        viewModel.unauthorized.observe(requireActivity(), Observer {
-            it?.let {
-                if (it) {
-                    Utils.showSnackBar(getString(R.string.your_session_is_out), rv_time_slots)
-                    Utils.logoutUser(requireActivity())
+                        txt_service.text = servicesList[0].subcatName
+                    }
+
+                    if (it?.slots?.isNullOrEmpty() == false) {
+                        slotList = it?.slots as ArrayList<SlotsItem>
+                        setUpTimeSlotAdapter(slotList)
+                    }
                 }
-            }
-        })
+            })
 
-        viewModel.isLoading.observe(requireActivity(), androidx.lifecycle.Observer {
-            it?.let {
-                Utils.showLoading(it, requireActivity())
-            }
-        })
-
-        addToCartModel.addToCartResponse.observe(requireActivity(), androidx.lifecycle.Observer {
-            Utils.showLoading(false, requireActivity())
-            if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_time_slots)
-            } else {
-                Utils.showSnackBar(it.message?:getString(R.string.added_to_cart_successfully),rv_time_slots)
-                //findNavController()?.navigate(R.id.action_serviceDetailFragment_to_cartFragment)
-                startActivity(Intent(requireActivity(), HomeActivity::class.java))
-                (requireActivity() as HomeActivity).finish()
-            }
-        })
-
-        addToCartModel.apiError.observe(requireActivity(), androidx.lifecycle.Observer {
-            it?.let {
-                Utils.showSnackBar(it, rv_time_slots)
-                Utils.showLoading(false, requireActivity())
-            }
-        })
-
-        addToCartModel.unauthorized.observe(requireActivity(), Observer {
-            it?.let {
-                if (it) {
-                    Utils.showSnackBar(getString(R.string.your_session_is_out), rv_time_slots)
-                    Utils.logoutUser(requireActivity())
+            viewModel.apiError.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {
+                    Utils.showSnackBar(it, rv_time_slots)
+                    Utils.showLoading(false, requireActivity())
                 }
-            }
-        })
+            })
 
-        addToCartModel.isLoading.observe(requireActivity(), androidx.lifecycle.Observer {
-            it?.let {
-                Utils.showLoading(it, requireActivity())
-            }
-        })
+            viewModel.unauthorized.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    if (it) {
+                        Utils.showSnackBar(getString(R.string.your_session_is_out), rv_time_slots)
+                        Utils.logoutUser(requireActivity())
+                    }
+                }
+            })
+
+            viewModel.isLoading.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {
+                    Utils.showLoading(it, requireActivity())
+                }
+            })
+
+            addToCartModel.addToCartResponse.observe(
+                viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    Utils.showLoading(false, requireActivity())
+                    if (it.status == false) {
+                        Utils.showSnackBar(getString(R.string.please_try_ahain), rv_time_slots)
+                    } else {
+                        Utils.showSnackBar(
+                            it.message ?: getString(R.string.added_to_cart_successfully),
+                            rv_time_slots
+                        )
+                        findNavController()?.navigate(R.id.action_serviceDetailFragment_to_cartFragment)
+//                startActivity(Intent(viewLifecycleOwner, HomeActivity::class.java))
+//                (viewLifecycleOwner as HomeActivity).finish()
+                    }
+                })
+
+            addToCartModel.apiError.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {
+                    Utils.showSnackBar(it, rv_time_slots)
+                    Utils.showLoading(false, requireActivity())
+                }
+            })
+
+            addToCartModel.unauthorized.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    if (it) {
+                        Utils.showSnackBar(getString(R.string.your_session_is_out), rv_time_slots)
+                        Utils.logoutUser(requireActivity())
+                    }
+                }
+            })
+
+            addToCartModel.isLoading.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {
+                    Utils.showLoading(it, requireActivity())
+                }
+            })
+        } catch (e: java.lang.Exception){
+            e.printStackTrace()
+        }
     }
 
     private fun setUpDataForAddress(storeAddress: Storeaddress?) {
@@ -404,7 +418,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
         for (i in 0 until serviceList.size) {
             subTotal += ((serviceList[i].price)*(serviceList[i].quantity).toDouble())
         }
-        txt_total.text = "QAR $subTotal"
+        txt_total.text = "${getString(R.string.currency_value)} $subTotal"
         addToCartRequest.totalAmount = subTotal.toString()
     }
 
@@ -489,15 +503,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
 
     private var selectedTime = "00:00:00"
     private fun compareDateAndTime(): Int{
-        selectedTime = selectedTime.replace(" ",":")
-        if(selectedTime.contains("AM") || selectedTime.contains("am")){
-            selectedTime = selectedTime.replace("AM","00")
-            selectedTime = selectedTime.replace("am","00")
-        }
-        if(selectedTime.contains("PM") || selectedTime.contains("pm")){
-            selectedTime = selectedTime.replace("PM","00")
-            selectedTime = selectedTime.replace("pm","00")
-        }
+        selectedTime = Utils.getTimeIn24HoursFormat(selectedTime)
         var date = "${addToCartRequest.order_date} $selectedTime"
         return Utils.compareDateTimeForSlots(date)
     }

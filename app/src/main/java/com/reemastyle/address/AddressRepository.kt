@@ -7,6 +7,7 @@ import com.reemastyle.api.ApiHelper
 import com.reemastyle.api.RestClient
 import com.reemastyle.model.address.AddAddressResponse
 import com.reemastyle.model.getaddress.GetAddressResponse
+import com.reemastyle.model.notification.NotificationResponse
 import com.reemastyle.model.search.SearchCategoryResponse
 import com.reemastyle.model.zones.ZonesResponse
 import retrofit2.Call
@@ -203,14 +204,14 @@ object AddressRepository {
 
 
     fun getNotifications(
-        successHandler: (SearchCategoryResponse) -> Unit,
+        successHandler: (NotificationResponse) -> Unit,
         failureHandler: (String) -> Unit, unauthorized: (Boolean) -> Unit, hashMap: JsonObject
     ) {
         webService.getNotifications(hashMap).enqueue(object :
-            Callback<SearchCategoryResponse> {
+            Callback<NotificationResponse> {
             override fun onResponse(
-                call: Call<SearchCategoryResponse>,
-                response: Response<SearchCategoryResponse>
+                call: Call<NotificationResponse>,
+                response: Response<NotificationResponse>
             ) {
                 response?.body()?.let {
                     successHandler(it)
@@ -238,7 +239,7 @@ object AddressRepository {
 
             }
 
-            override fun onFailure(call: Call<SearchCategoryResponse>, t: Throwable) {
+            override fun onFailure(call: Call<NotificationResponse>, t: Throwable) {
                 t.message?.let { Log.d("Error", it) }
 
                 t.let {

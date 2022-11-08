@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,22 +18,20 @@ import com.reemastyle.model.heenadetail.HeenaSectionItem
 import com.reemastyle.preferences.Preferences
 import com.reemastyle.service.ServiceViewModel
 import com.reemastyle.util.Constants
-import com.reemastyle.util.Constants.SELECTED_SUB_CATEGORY_NAME
 import com.reemastyle.util.Utils
-import kotlinx.android.synthetic.main.fragment_heena_detail.*
-import kotlinx.android.synthetic.main.fragment_update_profile.*
+import kotlinx.android.synthetic.main.fragment_heena_leg_front_back_detail.*
 
-class HeenaDetailFragment : Fragment() {
+class HeenaLegFrontBackFragment : Fragment() {
     lateinit var viewModel: ServiceViewModel
     private var heenaDetailList: ArrayList<HeenaSectionItem> = ArrayList<HeenaSectionItem>()
-    private var selectedHeena: HeenaSectionItem ?= null
+    private var selectedHeena: HeenaSectionItem?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_heena_detail, container, false)
+        return inflater.inflate(R.layout.fragment_heena_leg_front_back_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,9 +62,9 @@ class HeenaDetailFragment : Fragment() {
                 return@setOnClickListener
             }else{
                 var bundle = Bundle()
-                bundle.putString("heena_data",Gson().toJson(selectedHeena))
-                bundle.putString("heena_details",Gson().toJson(heenaDetailResponse))
-                findNavController().navigate(R.id.action_heenaDetailFragment_to_bookHeenaFragment, bundle)
+                bundle.putString("heena_data", Gson().toJson(selectedHeena))
+                bundle.putString("heena_details", Gson().toJson(heenaDetailResponse))
+                findNavController().navigate(R.id.action_heenaLegFrontBackFragment_to_bookHeenaFragment, bundle)
             }
         }
         img_1.setOnClickListener {
@@ -123,7 +120,7 @@ class HeenaDetailFragment : Fragment() {
     }
 
     private fun changeImageResources() {
-        if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
+        if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -266,150 +263,151 @@ class HeenaDetailFragment : Fragment() {
                     img_10.setImageResource(R.drawable.leg_10)
                 }
             }
-        }else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
-            when (clickedPosition) {
-                10 -> {
-                    hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
-                        txtPrice9,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice1)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05_selected)
-                    img_7.setImageResource(R.drawable.leg_01_04_selected)
-                    img_8.setImageResource(R.drawable.leg_01_03_selected)
-                    img_9.setImageResource(R.drawable.leg_01_02_selected)
-                    img_10.setImageResource(R.drawable.leg_01_01_selected)
-                }
-                9 -> {
-                    hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
-                        txtPrice9,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice1)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05_selected)
-                    img_7.setImageResource(R.drawable.leg_01_04_selected)
-                    img_8.setImageResource(R.drawable.leg_01_03_selected)
-                    img_9.setImageResource(R.drawable.leg_01_02_selected)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                8 -> {
-                    hidePricingData(ll8,ll2,ll3,ll4,ll1,ll6,ll7,ll5,ll9,
-                        txtPrice8,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice1,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05_selected)
-                    img_7.setImageResource(R.drawable.leg_01_04_selected)
-                    img_8.setImageResource(R.drawable.leg_01_03_selected)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                7 -> {
-                    hidePricingData(ll7,ll2,ll3,ll4,ll1,ll6,ll5,ll8,ll9,
-                        txtPrice7,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice1,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05_selected)
-                    img_7.setImageResource(R.drawable.leg_01_04_selected)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                6 -> {
-                    hidePricingData(ll6,ll2,ll3,ll4,ll5,ll1,ll7,ll8,ll9,
-                        txtPrice6,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice1,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05_selected)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                5 -> {
-                    hidePricingData(ll5,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll9,
-                        txtPrice5,txtPrice2,txtPrice3,txtPrice4,txtPrice1,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06_selected)
-                    img_6.setImageResource(R.drawable.leg_01_05)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                4 -> {
-                    hidePricingData(ll4,ll2,ll3,ll1,ll5,ll6,ll7,ll8,ll9,
-                        txtPrice4,txtPrice2,txtPrice3,txtPrice1,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07_selected)
-                    img_5.setImageResource(R.drawable.leg_01_06)
-                    img_6.setImageResource(R.drawable.leg_01_05)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                3 -> {
-                    hidePricingData(ll3,ll2,ll1,ll4,ll5,ll6,ll7,ll8,ll9,
-                        txtPrice3,txtPrice2,txtPrice1,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08_selected)
-                    img_4.setImageResource(R.drawable.leg_01_07)
-                    img_5.setImageResource(R.drawable.leg_01_06)
-                    img_6.setImageResource(R.drawable.leg_01_05)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                2 -> {
-                    hidePricingData(ll2,ll1,ll3,ll4,ll5,ll6,ll7,ll8,ll9,
-                        txtPrice2,txtPrice1,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09_selected)
-                    img_3.setImageResource(R.drawable.leg_01_08)
-                    img_4.setImageResource(R.drawable.leg_01_07)
-                    img_5.setImageResource(R.drawable.leg_01_06)
-                    img_6.setImageResource(R.drawable.leg_01_05)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-                1 -> {
-                    hidePricingData(ll1,ll2,ll3,ll4,ll5,ll6,ll7,ll8,ll9,
-                        txtPrice1,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
-                    img_1.setImageResource(R.drawable.leg_01_10_selected)
-                    img_2.setImageResource(R.drawable.leg_01_09)
-                    img_3.setImageResource(R.drawable.leg_01_08)
-                    img_4.setImageResource(R.drawable.leg_01_07)
-                    img_5.setImageResource(R.drawable.leg_01_06)
-                    img_6.setImageResource(R.drawable.leg_01_05)
-                    img_7.setImageResource(R.drawable.leg_01_04)
-                    img_8.setImageResource(R.drawable.leg_01_03)
-                    img_9.setImageResource(R.drawable.leg_01_02)
-                    img_10.setImageResource(R.drawable.leg_01_01)
-                }
-            }
-        } else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" )  {
+//        }
+//        else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
+//            when (clickedPosition) {
+//                10 -> {
+//                    hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
+//                        txtPrice9,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice1)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05_selected)
+//                    img_7.setImageResource(R.drawable.leg_01_04_selected)
+//                    img_8.setImageResource(R.drawable.leg_01_03_selected)
+//                    img_9.setImageResource(R.drawable.leg_01_02_selected)
+//                    img_10.setImageResource(R.drawable.leg_01_01_selected)
+//                }
+//                9 -> {
+//                    hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
+//                        txtPrice9,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice1)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05_selected)
+//                    img_7.setImageResource(R.drawable.leg_01_04_selected)
+//                    img_8.setImageResource(R.drawable.leg_01_03_selected)
+//                    img_9.setImageResource(R.drawable.leg_01_02_selected)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                8 -> {
+//                    hidePricingData(ll8,ll2,ll3,ll4,ll1,ll6,ll7,ll5,ll9,
+//                        txtPrice8,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice1,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05_selected)
+//                    img_7.setImageResource(R.drawable.leg_01_04_selected)
+//                    img_8.setImageResource(R.drawable.leg_01_03_selected)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                7 -> {
+//                    hidePricingData(ll7,ll2,ll3,ll4,ll1,ll6,ll5,ll8,ll9,
+//                        txtPrice7,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice1,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05_selected)
+//                    img_7.setImageResource(R.drawable.leg_01_04_selected)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                6 -> {
+//                    hidePricingData(ll6,ll2,ll3,ll4,ll5,ll1,ll7,ll8,ll9,
+//                        txtPrice6,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice1,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05_selected)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                5 -> {
+//                    hidePricingData(ll5,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll9,
+//                        txtPrice5,txtPrice2,txtPrice3,txtPrice4,txtPrice1,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06_selected)
+//                    img_6.setImageResource(R.drawable.leg_01_05)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                4 -> {
+//                    hidePricingData(ll4,ll2,ll3,ll1,ll5,ll6,ll7,ll8,ll9,
+//                        txtPrice4,txtPrice2,txtPrice3,txtPrice1,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07_selected)
+//                    img_5.setImageResource(R.drawable.leg_01_06)
+//                    img_6.setImageResource(R.drawable.leg_01_05)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                3 -> {
+//                    hidePricingData(ll3,ll2,ll1,ll4,ll5,ll6,ll7,ll8,ll9,
+//                        txtPrice3,txtPrice2,txtPrice1,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08_selected)
+//                    img_4.setImageResource(R.drawable.leg_01_07)
+//                    img_5.setImageResource(R.drawable.leg_01_06)
+//                    img_6.setImageResource(R.drawable.leg_01_05)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                2 -> {
+//                    hidePricingData(ll2,ll1,ll3,ll4,ll5,ll6,ll7,ll8,ll9,
+//                        txtPrice2,txtPrice1,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09_selected)
+//                    img_3.setImageResource(R.drawable.leg_01_08)
+//                    img_4.setImageResource(R.drawable.leg_01_07)
+//                    img_5.setImageResource(R.drawable.leg_01_06)
+//                    img_6.setImageResource(R.drawable.leg_01_05)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//                1 -> {
+//                    hidePricingData(ll1,ll2,ll3,ll4,ll5,ll6,ll7,ll8,ll9,
+//                        txtPrice1,txtPrice2,txtPrice3,txtPrice4,txtPrice5,txtPrice6,txtPrice7,txtPrice8,txtPrice9)
+//                    img_1.setImageResource(R.drawable.leg_01_10_selected)
+//                    img_2.setImageResource(R.drawable.leg_01_09)
+//                    img_3.setImageResource(R.drawable.leg_01_08)
+//                    img_4.setImageResource(R.drawable.leg_01_07)
+//                    img_5.setImageResource(R.drawable.leg_01_06)
+//                    img_6.setImageResource(R.drawable.leg_01_05)
+//                    img_7.setImageResource(R.drawable.leg_01_04)
+//                    img_8.setImageResource(R.drawable.leg_01_03)
+//                    img_9.setImageResource(R.drawable.leg_01_02)
+//                    img_10.setImageResource(R.drawable.leg_01_01)
+//                }
+//            }
+        } else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" )  {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -552,7 +550,7 @@ class HeenaDetailFragment : Fragment() {
                     img_10.setImageResource(R.drawable.hand_03)
                 }
             }
-        }else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق")  {
+        }else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق")  {
             when (clickedPosition) {
                 10 -> {
                     hidePricingData(ll9,ll2,ll3,ll4,ll1,ll6,ll7,ll8,ll5,
@@ -698,8 +696,9 @@ class HeenaDetailFragment : Fragment() {
         }
     }
 
-    private fun hidePricingData(ll1: LinearLayout, ll2: LinearLayout,ll3: LinearLayout,ll4: LinearLayout,ll5: LinearLayout,ll6: LinearLayout,ll7: LinearLayout,ll8: LinearLayout,ll9: LinearLayout,
-                                txt1: TextView,txt2: TextView,txt3: TextView,txt4: TextView,txt5: TextView,txt6: TextView,txt7: TextView,txt8: TextView,txt9: TextView){
+    private fun hidePricingData(ll1: LinearLayout, ll2: LinearLayout, ll3: LinearLayout, ll4: LinearLayout, ll5: LinearLayout, ll6: LinearLayout, ll7: LinearLayout, ll8: LinearLayout, ll9: LinearLayout,
+                                txt1: TextView, txt2: TextView, txt3: TextView, txt4: TextView, txt5: TextView, txt6: TextView, txt7: TextView, txt8: TextView, txt9: TextView
+    ){
         ll1.setBackgroundResource(R.drawable.rounded_gradient_bg)
         ll2.background = null
         ll3.background = null
@@ -729,7 +728,7 @@ class HeenaDetailFragment : Fragment() {
     }
 
     private fun changeDataAccordingToCategory() {
-        if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق") {
+        if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "الجبهة الساق" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
             img_1.setImageResource(R.drawable.leg_1)
             img_2.setImageResource(R.drawable.leg_2)
             img_3.setImageResource(R.drawable.leg_3)
@@ -740,18 +739,18 @@ class HeenaDetailFragment : Fragment() {
             img_8.setImageResource(R.drawable.leg_8)
             img_9.setImageResource(R.drawable.leg_9)
             img_10.setImageResource(R.drawable.leg_10)
-        } else if (SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
-            img_1.setImageResource(R.drawable.leg_01_10)
-            img_2.setImageResource(R.drawable.leg_01_09)
-            img_3.setImageResource(R.drawable.leg_01_08)
-            img_4.setImageResource(R.drawable.leg_01_07)
-            img_5.setImageResource(R.drawable.leg_01_06)
-            img_6.setImageResource(R.drawable.leg_01_05)
-            img_7.setImageResource(R.drawable.leg_01_04)
-            img_8.setImageResource(R.drawable.leg_01_03)
-            img_9.setImageResource(R.drawable.leg_01_02)
-            img_10.setImageResource(R.drawable.leg_01_01)
-        } else if((SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front") || SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" ) {
+//        } else if (Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Leg front and back" || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية والخلفية") {
+//            img_1.setImageResource(R.drawable.leg_01_10)
+//            img_2.setImageResource(R.drawable.leg_01_09)
+//            img_3.setImageResource(R.drawable.leg_01_08)
+//            img_4.setImageResource(R.drawable.leg_01_07)
+//            img_5.setImageResource(R.drawable.leg_01_06)
+//            img_6.setImageResource(R.drawable.leg_01_05)
+//            img_7.setImageResource(R.drawable.leg_01_04)
+//            img_8.setImageResource(R.drawable.leg_01_03)
+//            img_9.setImageResource(R.drawable.leg_01_02)
+//            img_10.setImageResource(R.drawable.leg_01_01)
+        } else if((Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front") || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "اليد الأمامية" ) {
             img_1.setImageResource(R.drawable.hand_13)
             img_2.setImageResource(R.drawable.hand_12)
             img_3.setImageResource(R.drawable.hand_11)
@@ -762,7 +761,7 @@ class HeenaDetailFragment : Fragment() {
             img_8.setImageResource(R.drawable.hand_06)
             img_9.setImageResource(R.drawable.hand_05)
             img_10.setImageResource(R.drawable.hand_03)
-        } else if((SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back") || SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق" ) {
+        } else if((Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "Hand front and back") || Constants.SELECTED_SUB_CATEGORY_NAME.trim() == "أمامي وخلفي الساق" ) {
             img_1.setImageResource(R.drawable.h4_13)
             img_2.setImageResource(R.drawable.h4_12)
             img_3.setImageResource(R.drawable.h4_11)
@@ -793,7 +792,7 @@ class HeenaDetailFragment : Fragment() {
 
         viewModel.apiError.observe(requireActivity(), androidx.lifecycle.Observer {
             it?.let {
-                Utils.showSnackBar(it, img_back)
+                Utils.showSnackBar(it, img_10)
                 try {
                     Utils.showLoading(false, requireActivity())
                 }catch (e:Exception){

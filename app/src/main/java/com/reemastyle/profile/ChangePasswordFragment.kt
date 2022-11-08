@@ -42,7 +42,7 @@ class ChangePasswordFragment : Fragment() {
             if (it.status == true) {
                 Utils.logoutUser(requireActivity())
             } else {
-                Utils.showSnackBar(it.message ?: "Please try again later", et_old_password)
+                Utils.showSnackBar(it.message ?: getString(R.string.please_try_ahain), et_old_password)
             }
         })
 

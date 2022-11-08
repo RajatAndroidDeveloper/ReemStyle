@@ -88,12 +88,13 @@ class BookingsFragment : Fragment(), BookingItemClicked {
         viewModel.bookingHistoryResponse.observe(requireActivity(), Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_bookings)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), rv_bookings)
             } else {
                 if(it?.items?.isNullOrEmpty() == false){
                     bookingList = it.items as ArrayList<ItemsItem> /* = java.util.ArrayList<com.reemastyle.model.history.OrdersItem> */
                     for(i in 0 until bookingList.size){
                         if(bookingList[i].subtotal == "") bookingList[i].subtotal = "0.0"
+                        if(bookingList[i].homeservice == "") bookingList[i].homeservice = "0.0"
                     }
                     setUpBookingsAdapter(bookingList)
                 }
@@ -103,8 +104,9 @@ class BookingsFragment : Fragment(), BookingItemClicked {
         viewModel.bookingCancelResponse.observe(requireActivity(), Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_bookings)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), rv_bookings)
             } else {
+                Utils.showSnackBar(it?.message ?:"", rv_bookings)
                 callBookingHistioryAPI()
             }
         })

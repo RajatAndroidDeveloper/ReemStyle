@@ -35,12 +35,18 @@ class BookingsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.layout.txt_date.text = Utils.getFormattedDateValue(bookings[position].date ?: "")
-        holder.layout.txt_booking_type.text = (bookings[position].itemstatus ?: "")
+        holder.layout.txt_date.text = Utils.getFormattedTimeValue(bookings[position].date ?: "")
+        if(bookings[position].itemstatus == ""){
+            holder.layout.txt_booking_type.text = context.getString(R.string.new_text)
+        }else {
+            holder.layout.txt_booking_type.text = (bookings[position].itemstatus ?: context.getString(R.string.new_text))
+        }
         if (Preferences.prefs?.getString("Language","en") == "ar" && (bookings[position].orderSlotTime?:"").contains("AM")){
             holder.layout.txt_time_value.text  = (bookings[position].orderSlotTime?:"").replace("AM", context.getString(R.string.am_text))
         }else if (Preferences.prefs?.getString("Language","en") == "ar" && (bookings[position].orderSlotTime?:"").contains("PM")){
             holder.layout.txt_time_value.text  = (bookings[position].orderSlotTime?:"").replace("PM", context.getString(R.string.pm_text))
+        }else{
+            holder.layout.txt_time_value.text  = (bookings[position].orderSlotTime?:"")
         }
         holder.layout.txt_day.text = Utils.getFormattedDayOnly(bookings[position].orderDate.toString())
 
@@ -66,12 +72,10 @@ class BookingsAdapter(
             holder.layout.txt_service_name.text =
                 "${bookings[position].subcategoryName}, ${bookings[position].servicename}"
             holder.layout.txt_service_price.text = "${context.getString(R.string.currency_value)} ${bookings[position].servicePrice}"
-            var subTotal = ((bookings[position].servicePrice
-                ?: "0").toDouble() * (bookings[position].serviceQty ?: "0").toDouble())
+            var subTotal = ((bookings[position].servicePrice ?: "0").toDouble() * (bookings[position].serviceQty ?: "0").toDouble())
             holder.layout.txt_subtotal.text = "${context.getString(R.string.currency_value)} $subTotal"
-            holder.layout.txt_service_fee.text = "${context.getString(R.string.currency_value)} ${bookings[position].servicePrice}"
-            holder.layout.txt_total.text =
-                "${context.getString(R.string.currency_value)} ${(subTotal + (bookings[position].servicePrice ?: "0").toDouble())}"
+            holder.layout.txt_service_fee.text = "${context.getString(R.string.currency_value)} ${bookings[position].homeservice}"
+            holder.layout.txt_total.text = "${context.getString(R.string.currency_value)} ${((((bookings[position].servicePrice ?: "0").toDouble()) * ((bookings[position].serviceQty) ?: "0").toDouble()))+(bookings[position].homeservice?:"0.0").toDouble()}"
             holder.layout.txt_quant_val.text = "${bookings[position].serviceQty}"
         }
         holder.layout.img_option_menu.setOnClickListener {

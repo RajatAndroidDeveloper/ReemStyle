@@ -8,7 +8,10 @@ data class SubCategoriesResponse(
 	val packages: List<PackagesItem?>? = null,
 
 	@field:SerializedName("status")
-	val status: Boolean? = null
+	val status: Boolean? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
 data class Category(

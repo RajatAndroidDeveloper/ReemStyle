@@ -18,6 +18,7 @@ import com.google.gson.JsonObject
 import com.reemastyle.HomeActivity
 import com.reemastyle.R
 import com.reemastyle.model.cart.ItemsItem
+import com.reemastyle.model.cart.SavedCartResponse
 import com.reemastyle.preferences.Preferences
 import com.reemastyle.util.Utils
 import kotlinx.android.synthetic.main.activity_home.*
@@ -52,7 +53,7 @@ class CartFragment : Fragment(), CartItemClicked {
         (requireActivity() as HomeActivity).bottom_menu.visibility = View.GONE
 
         clickListeners()
-        viewModel = ViewModelProviders.of(this).get(AddToCartModel::class.java)
+        viewModel = ViewModelProviders.of(this)[AddToCartModel::class.java]
         attachObservers()
 
         viewModel?.getCartData(createGetCartDataRequest())
@@ -102,7 +103,7 @@ class CartFragment : Fragment(), CartItemClicked {
 
     private fun showPopupWindow(view: View,position: Int) {
         val inflater = view.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView: View = inflater.inflate(R.layout.custom_popup_menu, null)
+        val popupView: View = inflater.inflate(R.layout.custom_popup_menu_for_cart, null)
         val width = LinearLayout.LayoutParams.MATCH_PARENT
         val height = LinearLayout.LayoutParams.MATCH_PARENT
         val focusable = true
@@ -113,13 +114,13 @@ class CartFragment : Fragment(), CartItemClicked {
         }
 
         popupView.txt_reschedule.setOnClickListener {
+            showCancellationConfirmationDialog(requireActivity(),position)
             popupWindow.dismiss()
-            var bundle  = bundleOf("cartItem" to Gson().toJson(cartList[position]))
-            findNavController().navigate(R.id.action_cartFragment_to_rescheduleBooking,bundle)
         }
 
         popupView.txt_cancel_booking.setOnClickListener {
             showCancellationConfirmationDialog(requireActivity(),position)
+            popupWindow.dismiss()
         }
     }
 
@@ -149,10 +150,10 @@ class CartFragment : Fragment(), CartItemClicked {
     }
 
     private fun attachObservers() {
-        viewModel.savedCartResponse.observe(requireActivity(), Observer {
+        viewModel.savedCartResponse.observe(viewLifecycleOwner, Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_cart)
+                Utils.showSnackBar(it?.message?:getString(R.string.please_try_ahain), rv_cart)
             } else {
                 Utils.showSnackBar(it?.message ?: "", rv_cart)
                 cartList = it?.items as ArrayList<ItemsItem> /* = java.util.ArrayList<com.reemastyle.model.cart.ItemsItem> */
@@ -169,24 +170,26 @@ class CartFragment : Fragment(), CartItemClicked {
             }
         })
 
-        viewModel.deleteCartResponse.observe(requireActivity(),Observer{
+        viewModel.deleteCartResponse.observe(viewLifecycleOwner,Observer{
             Utils.showLoading(false, requireActivity())
             if(cancelDialog.isShowing)
                 cancelDialog.dismiss()
             if(it.status == false){
-                Utils.showSnackBar(getString(R.string.please_try_ahain), rv_cart)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), rv_cart)
             }else{
                 Utils.showSnackBar(it?.message ?: "", rv_cart)
-                cartList.removeAt(deletedPosition)
-                for(i in 0 until cartList.size){
-                    if(cartList[i].subtotal == ""){
-                        cartList[i].subtotal == "0"
+                if(cartList.size >0) {
+                    cartList.removeAt(deletedPosition)
+                    for (i in 0 until cartList.size) {
+                        if (cartList[i].subtotal == "") {
+                            cartList[i].subtotal == "0"
+                        }
+                        if (cartList[i].homeservice == "") {
+                            cartList[i].homeservice == "0"
+                        }
                     }
-                    if(cartList[i].homeservice == ""){
-                        cartList[i].homeservice == "0"
-                    }
+                    calculateTotalAmount(cartList)
                 }
-                calculateTotalAmount(cartList)
                 cartItemAdapter?.notifyDataSetChanged()
             }
         })
@@ -216,21 +219,25 @@ class CartFragment : Fragment(), CartItemClicked {
 
     private var totalCartAmount = 0.0
     private fun calculateTotalAmount(cartListData: ArrayList<ItemsItem>) {
-        var totalAmount = 0.0
-        for(i in 0 until cartListData.size){
-            if(cartListData[i].subtotal == "") cartListData[i].subtotal = "0.0"
-            if(cartListData[i].homeservice == "") cartListData[i].homeservice = "0.0"
-            totalAmount += if(cartList[i].categoryName!!.trim() == "Leg front" || cartList[i].categoryName!!.trim() == "Hand front" ||cartList[i].categoryName!!.trim() == "Hand front and back" || cartList[i].categoryName!! == "Leg front and back"  || cartList[i].categoryName!!.trim() == "الجبهة الساق" || cartList[i].categoryName!!.trim() == "اليد الأمامية"
-                || cartList[i].categoryName!! == "اليد الأمامية والخلفية" || cartList[i].categoryName!!.trim() == "أمامي وخلفي الساق" ){
-
-                ((cartListData[i].subtotal ?: "0.0").toDouble())
-            }else{
-                (((cartListData[i].serviceprice ?: "0.0").toDouble()) * ((cartListData[i].serviceQty ?: "0.0").toDouble()))
+        if(cartListData.size>0) {
+            var totalAmount = 0.0
+            for (i in 0 until cartListData.size) {
+                if (cartListData[i].subtotal == "") cartListData[i].subtotal = "0.0"
+                if (cartListData[i].homeservice == "") cartListData[i].homeservice = "0.0"
+                totalAmount += if (cartList[i].categoryName!!.trim() == "Leg front" || cartList[i].categoryName!!.trim() == "Hand front" || cartList[i].categoryName!!.trim() == "Hand front and back" || cartList[i].categoryName!!.trim() == "Leg front and back" || cartList[i].categoryName!!.trim() == "الجبهة الساق" || cartList[i].categoryName!!.trim() == "اليد الأمامية"
+                    || cartList[i].categoryName!!.trim() == "اليد الأمامية والخلفية" || cartList[i].categoryName!!.trim() == "أمامي وخلفي الساق"
+                ) {
+                    ((cartListData[i].subtotal ?: "0.0").toDouble())
+                } else {
+                    (((cartListData[i].serviceprice
+                        ?: "0.0").toDouble()) * ((cartListData[i].serviceQty ?: "0.0").toDouble()))
+                }
+                totalAmount += ((cartListData[i].homeservice ?: "0.0").toDouble())
             }
-            totalAmount += ((cartListData[0].homeservice?:"0.0").toDouble())
+
             totalCartAmount = totalAmount
+            txt_total.text = "${getString(R.string.currency_value)} $totalAmount"
         }
-        txt_total.text  = "${getString(R.string.currency_value)} $totalAmount"
     }
 
     private lateinit var pricingDialog: Dialog

@@ -13,6 +13,7 @@ import com.reemastyle.model.heenadetail.HeenaDetailResponse
 import com.reemastyle.model.history.OrderHistoryResponse
 import com.reemastyle.model.home.HomeResponse
 import com.reemastyle.model.login.LoginResponse
+import com.reemastyle.model.notification.NotificationResponse
 import com.reemastyle.model.packagedetail.PackageDetailsResponse
 import com.reemastyle.model.packages.PackagesResponse
 import com.reemastyle.model.profile.ProfileResponse
@@ -71,10 +72,10 @@ interface WebService {
         @Part("name")name: RequestBody,
         @Part("email")email: RequestBody,
         @Part("ext")countryCode: RequestBody,
-        @Part("phone")mobile: RequestBody,
+        @Part("phone")mobileNumber: RequestBody,
         @Part("user_id")id: RequestBody,
         @Part("action")action: RequestBody,
-    ): Call<ProfileResponse>
+    ): Call<LoginResponse>
 
     @POST("index.php")
     fun getHomeData(
@@ -149,7 +150,7 @@ interface WebService {
     @POST("index.php")
     fun getNotifications(
         @Body map: JsonObject
-    ): Call<SearchCategoryResponse>
+    ): Call<NotificationResponse>
 
     @POST("index.php")
     fun addToCart(

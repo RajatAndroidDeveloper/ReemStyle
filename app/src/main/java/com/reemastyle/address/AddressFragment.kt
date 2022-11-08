@@ -56,6 +56,16 @@ class AddressFragment : Fragment() {
         var jsonObject = JsonObject()
         jsonObject.addProperty("action", "getzones")
         viewModel?.getAllZones(jsonObject)
+
+        if(Constants.PLACE_DATA != null){
+            et_street.setText(Constants.PLACE_DATA?.name?:"")
+            latitude = Constants.PLACE_DATA?.latLng?.latitude?:0.0
+            longitude = Constants.PLACE_DATA?.latLng?.longitude?:0.0
+        }else if(Constants.ADDRESS != ""){
+            et_street.setText(Constants.ADDRESS)
+            latitude = Constants.LATITUDE
+            longitude = Constants.LONGITUDE
+        }
     }
 
     private fun clickListeners() {
@@ -163,7 +173,7 @@ class AddressFragment : Fragment() {
         viewModel.addressResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), btn_save)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), btn_save)
             } else {
                 Utils.showSnackBar(it?.message ?: "", btn_save)
                 if (Constants.COMING_FROM == "service_details")
@@ -174,7 +184,7 @@ class AddressFragment : Fragment() {
         viewModel.zonesResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == false) {
-                Utils.showSnackBar(getString(R.string.please_try_ahain), btn_save)
+                Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), btn_save)
             } else {
                 if (!it?.zones.isNullOrEmpty()) {
                     zonesList.clear()
@@ -208,7 +218,7 @@ class AddressFragment : Fragment() {
     }
 
     private fun setUpZonestSpinner(zonesList: java.util.ArrayList<ZonesItem>) {
-        val aa = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, zonesList)
+        val aa = ArrayAdapter(requireActivity(), R.layout.custom_spinner_layout, zonesList)
         aa.setDropDownViewResource(R.layout.custom_spinner_layout)
         et_zones.adapter = aa
         et_zones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

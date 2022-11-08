@@ -25,12 +25,130 @@
                 android:layoutDirection="ltr"
                 android:layout_height="wrap_content">
 
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/img_12"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:src="@drawable/h4_13"-->
+                <!--                    android:layout_marginBottom="@dimen/_15sdp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/view11" />-->
+
+                <!--                <View-->
+                <!--                    android:id="@+id/view12"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:background="@color/white"-->
+                <!--                    android:visibility="invisible"-->
+                <!--                    app:layout_constraintBottom_toTopOf="@id/img_12"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@id/img_12"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/img_12"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/img_11" />-->
+
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll12"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="@dimen/_30sdp"-->
+                <!--                    android:layout_marginLeft="@dimen/_60sdp"-->
+                <!--                    android:elevation="@dimen/_10sdp"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/view12"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/view12"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/view12">-->
+
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/btn12"-->
+                <!--                        android:layout_width="@dimen/_20sdp"-->
+                <!--                        android:layout_height="@dimen/_20sdp"-->
+                <!--                        android:layout_gravity="center_vertical"-->
+                <!--                        android:buttonTint="@color/white"-->
+                <!--                        android:checked="true"-->
+                <!--                        android:drawableTint="@color/app_dark_bg" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/txtPrice12"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center_vertical"-->
+                <!--                        android:layout_marginLeft="@dimen/_6sdp"-->
+                <!--                        android:layout_marginRight="@dimen/_10sdp"-->
+                <!--                        android:fontFamily="@font/montserrat_semibold"-->
+                <!--                        android:gravity="center_vertical"-->
+                <!--                        android:text="QAR 250"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="@dimen/_12ssp"-->
+                <!--                        android:visibility="gone" />-->
+
+                <!--                </LinearLayout>-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/img_11"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:src="@drawable/h4_12"-->
+                <!--                    android:layout_marginBottom="@dimen/_15sdp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/view11" />-->
+
+                <!--                <View-->
+                <!--                    android:id="@+id/view11"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:background="@color/white"-->
+                <!--                    android:visibility="invisible"-->
+                <!--                    app:layout_constraintBottom_toTopOf="@id/img_11"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@id/img_11"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/img_11"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/img_1" />-->
+
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll11"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="@dimen/_30sdp"-->
+                <!--                    android:layout_marginLeft="@dimen/_60sdp"-->
+                <!--                    android:elevation="@dimen/_10sdp"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/view11"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/view11"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/view11">-->
+
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/btn11"-->
+                <!--                        android:layout_width="@dimen/_20sdp"-->
+                <!--                        android:layout_height="@dimen/_20sdp"-->
+                <!--                        android:layout_gravity="center_vertical"-->
+                <!--                        android:buttonTint="@color/white"-->
+                <!--                        android:checked="true"-->
+                <!--                        android:drawableTint="@color/app_dark_bg" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/txtPrice11"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center_vertical"-->
+                <!--                        android:layout_marginLeft="@dimen/_6sdp"-->
+                <!--                        android:layout_marginRight="@dimen/_10sdp"-->
+                <!--                        android:fontFamily="@font/montserrat_semibold"-->
+                <!--                        android:gravity="center_vertical"-->
+                <!--                        android:text="QAR 250"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="@dimen/_12ssp"-->
+                <!--                        android:visibility="gone" />-->
+
+                <!--                </LinearLayout>-->
+
                 <ImageView
                     android:id="@+id/img_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_13"
-                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:src="@drawable/h4_13"
+                    android:layout_marginBottom="@dimen/_20sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +206,7 @@
                     android:id="@+id/img_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_12"
+                    android:src="@drawable/h4_12"
                     app:layout_constraintBottom_toTopOf="@id/view1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +226,7 @@
                     android:id="@+id/ll2"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_65sdp"
+                    android:layout_marginLeft="@dimen/_80sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -144,7 +262,7 @@
                     android:id="@+id/img_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_11"
+                    android:src="@drawable/h4_11"
                     app:layout_constraintBottom_toTopOf="@id/view2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +282,7 @@
                     android:id="@+id/ll3"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_65sdp"
+                    android:layout_marginLeft="@dimen/_78sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -201,7 +319,7 @@
                     android:id="@+id/img_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_10"
+                    android:src="@drawable/h4_10"
                     app:layout_constraintBottom_toTopOf="@id/view3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -221,7 +339,7 @@
                     android:id="@+id/ll4"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_55sdp"
+                    android:layout_marginLeft="@dimen/_70sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -258,7 +376,7 @@
                     android:id="@+id/img_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_09"
+                    android:src="@drawable/h4_09"
                     app:layout_constraintBottom_toTopOf="@id/view4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -278,7 +396,7 @@
                     android:id="@+id/ll5"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_60sdp"
+                    android:layout_marginLeft="@dimen/_70sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -315,7 +433,7 @@
                     android:id="@+id/img_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_08"
+                    android:src="@drawable/h4_08"
                     app:layout_constraintBottom_toTopOf="@id/view5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -335,7 +453,7 @@
                     android:id="@+id/ll6"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_65sdp"
+                    android:layout_marginLeft="@dimen/_72sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -372,7 +490,7 @@
                     android:id="@+id/img_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_07"
+                    android:src="@drawable/h4_07"
                     app:layout_constraintBottom_toTopOf="@id/view6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -392,7 +510,7 @@
                     android:id="@+id/ll7"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_65sdp"
+                    android:layout_marginLeft="@dimen/_75sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -428,7 +546,7 @@
                     android:id="@+id/img_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_06"
+                    android:src="@drawable/h4_06"
                     app:layout_constraintBottom_toTopOf="@id/view7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -448,7 +566,7 @@
                     android:id="@+id/ll8"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_68sdp"
+                    android:layout_marginLeft="@dimen/_73sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -484,7 +602,7 @@
                     android:id="@+id/img_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_05"
+                    android:src="@drawable/h4_05"
                     app:layout_constraintBottom_toTopOf="@id/view8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -504,7 +622,7 @@
                     android:id="@+id/ll9"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_70sdp"
+                    android:layout_marginLeft="@dimen/_74sdp"
                     android:elevation="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -541,8 +659,8 @@
                     android:id="@+id/img_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hand_03"
                     android:layout_marginTop="@dimen/_15sdp"
+                    android:src="@drawable/h4_03"
                     app:layout_constraintBottom_toTopOf="@id/view9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

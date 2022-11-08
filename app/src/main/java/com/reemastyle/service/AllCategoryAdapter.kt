@@ -26,7 +26,7 @@ class AllCategoryAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (!categoryList[position].image.isNullOrEmpty())
-            Glide.with(context).load(categoryList[position].image)
+            Glide.with(context).load(categoryList[position].image).placeholder(R.drawable.cate_dummy)
                 .into(holder.layout.img_category)
         holder.layout.txt_category_title.text = categoryList[position].catName
 

@@ -10,8 +10,12 @@ import com.reemastyle.model.cart.SavedCartResponse
 import com.reemastyle.model.slots.TimeSlotResponse
 
 class AddToCartModel: MyViewModel() {
-    var addToCartResponse = MutableLiveData<AddToCartResponse>()
-    var savedCartResponse = MutableLiveData<SavedCartResponse>()
+    val addToCartResponse: MutableLiveData<AddToCartResponse> by lazy {
+        MutableLiveData<AddToCartResponse>()
+    }
+    val savedCartResponse: MutableLiveData<SavedCartResponse> by lazy {
+        MutableLiveData<SavedCartResponse>()
+    }
     var deleteCartResponse = MutableLiveData<SavedCartResponse>()
     var updateCartResponse = MutableLiveData<SavedCartResponse>()
     var placeOrderResponse = MutableLiveData<SavedCartResponse>()

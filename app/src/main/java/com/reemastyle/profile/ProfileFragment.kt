@@ -74,7 +74,7 @@ class ProfileFragment : Fragment() {
             if (it.status == true) {
                 setUpProfileData(it.profileData)
             } else {
-                Utils.showSnackBar(it.message ?: "Please try again later", img_back)
+                Utils.showSnackBar(it.message ?: getString(R.string.please_try_ahain), img_back)
             }
         })
 

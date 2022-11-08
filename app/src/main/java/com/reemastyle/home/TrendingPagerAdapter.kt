@@ -2,62 +2,40 @@ package com.reemastyle.home
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.reemastyle.R
 import com.reemastyle.model.home.PackagesItem
 import com.reemastyle.util.Utils
+import kotlinx.android.synthetic.main.trending_pager_layout.view.*
 
-class TrendingPagerAdapter(var packageList: ArrayList<PackagesItem>, var context: Context, private var packageItemClicked: PackageItemClicked) : RecyclerView.Adapter<TrendingPagerAdapter.ViewHolder>() {
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
+class TrendingPagerAdapter(private var packageList: ArrayList<PackagesItem>, private var context: Context, private var packageItemClicked: PackageItemClicked) : RecyclerView.Adapter<TrendingPagerAdapter.MyViewHolder>() {
+    inner class MyViewHolder(val layout: CardView) : RecyclerView.ViewHolder(layout)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingPagerAdapter.ViewHolder {
-        val view: View = mInflater.inflate(R.layout.trending_pager_layout, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        var view = LayoutInflater.from(parent.context).inflate(R.layout.trending_pager_layout, parent, false) as CardView
+        return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txt_package_value.text = packageList[position].discount+" "+context.getString(R.string.off)
-        holder.txt_salon_name.text = packageList[position].packname
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.layout.txt_package_value.text = packageList[position].discount+" "+context.getString(R.string.off)
+        holder.layout.txt_salon_name.text = packageList[position].packname
         if(!packageList[position].image.isNullOrEmpty()){
-           Glide.with(context).load(packageList[position].image).into(holder.img_package)
+            Glide.with(context).load(packageList[position].image).into(holder.layout.img_package)
         }
-        holder.txt_description.text = packageList[position].discription
-        holder.txt_price.text  = "QAR${packageList[position].price}"
-        holder.txt_offerPrice.text = Utils.getFormatlistPrice("QAR "+""+packageList[position].oldprice)
-        holder.contentlayout.setOnClickListener {
+        holder.layout.txt_description.text = packageList[position].discription
+        holder.layout.txt_price.text  = "QAR${packageList[position].price}"
+        holder.layout.txt_offerPrice.text = Utils.getFormatlistPrice("QAR "+""+packageList[position].oldprice)
+        holder.layout.contentlayout.setOnClickListener {
             packageItemClicked.onPackageItemClicked(position)
         }
     }
 
     override fun getItemCount(): Int {
         return packageList.size
-    }
-
-    inner class ViewHolder internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var txt_salon_name: TextView
-        var txt_package_value: TextView
-        var txt_price: TextView
-        var txt_offerPrice: TextView
-        var txt_description: TextView
-        var img_package: ImageView
-        var contentlayout: CardView
-
-        init {
-            txt_salon_name = itemView.findViewById(R.id.txt_salon_name)
-            txt_price = itemView.findViewById(R.id.txt_price)
-            txt_offerPrice = itemView.findViewById(R.id.txt_offerPrice)
-            img_package = itemView.findViewById(R.id.img_package)
-            txt_package_value = itemView.findViewById(R.id.txt_package_value)
-            txt_description = itemView.findViewById(R.id.txt_description)
-            contentlayout = itemView.findViewById(R.id.contentlayout)
-        }
     }
 }
 
