@@ -57,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         bottom_menu.setupWithNavController(navController!!);
 
-        if(Utils.getUserData()?.profImage?.isNullOrEmpty() == false){
+       if(Utils.getUserData()?.profImage?.isNullOrEmpty() == false){
             Log.e("xsddddsdsdsd",Utils.getUserData()?.profImage?:"wdd")
             Glide.with(this).load(Utils.getUserData()?.profImage).placeholder(R.drawable.ic_dummy_profile).into(img_profile)
         }

@@ -171,13 +171,19 @@
             app:exitAnim="@anim/slide_to_left" />
         <action
             android:id="@+id/action_subcategoryFragment_to_heenaLegFrontFragment"
-            app:destination="@id/heenaLegFrontFragment" />
+            app:destination="@id/heenaLegFrontFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
         <action
             android:id="@+id/action_subcategoryFragment_to_heenaLegFrontBackFragment"
-            app:destination="@id/heenaLegFrontBackFragment" />
+            app:destination="@id/heenaLegFrontBackFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
         <action
             android:id="@+id/action_subcategoryFragment_to_heenaHandFrontBackFragment"
-            app:destination="@id/heenaHandFrontBackFragment" />
+            app:destination="@id/heenaHandFrontBackFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -299,7 +305,14 @@
             app:exitAnim="@anim/slide_to_left" />
         <action
             android:id="@+id/action_packageDetailsFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -366,6 +379,11 @@
             app:destination="@id/cartFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_to_left"/>
+        <action
+            android:id="@+id/action_bookHeenaFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left" />
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"

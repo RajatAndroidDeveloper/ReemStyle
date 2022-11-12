@@ -10,10 +10,12 @@ object Constants {
     var LONGITUDE = 0.0
     var ADDRESS = ""
     var PHONE_NUMBER = ""
+    var COMING_TO_LOCATION_FROM = ""
     var COUNTRY_CODE = ""
     var LOGIN_TYPE = ""
     var EMAIL = ""
     var COMING_FROM = ""
+    var HEENA_RESPONSE = ""
     var SELECTED_CATEGORY = "0"
     var SELECTED_CATEGORY_NAME = ""
     var SELECTED_CATEGORY_IMAGE = ""

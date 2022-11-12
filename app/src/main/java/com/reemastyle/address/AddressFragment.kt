@@ -176,8 +176,7 @@ class AddressFragment : Fragment() {
                 Utils.showSnackBar(it?.message ?:getString(R.string.please_try_ahain), btn_save)
             } else {
                 Utils.showSnackBar(it?.message ?: "", btn_save)
-                if (Constants.COMING_FROM == "service_details")
-                    Constants.COMING_FROM = "add_address"
+                Constants.COMING_FROM = "address_added"
                 (requireActivity() as HomeActivity).onBackPressed()
             }
         })
@@ -223,7 +222,7 @@ class AddressFragment : Fragment() {
         et_zones.adapter = aa
         et_zones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                selectedZone = zonesList[position].name ?: ""
+                selectedZone = zonesList[position].id ?: ""
                 Log.e("selectedZone" , selectedZone)
             }
 

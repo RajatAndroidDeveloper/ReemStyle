@@ -112,7 +112,8 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
             findCurrentLocation()
         }
 
-        if (Constants.COMING_FROM == "add_address") {
+        if(Constants.COMING_FROM == "address_added"){
+            Constants.COMING_FROM = ""
             (requireActivity() as HomeActivity).onBackPressed()
         }
     }

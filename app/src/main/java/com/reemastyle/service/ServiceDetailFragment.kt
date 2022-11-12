@@ -92,12 +92,22 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
         getCurrentDate()
 
         attachObservers()
+
+        Log.e("asasasasas",addToCartRequest.categoryId)
+        if(addToCartRequest.services.size>0){
+            calculatePrice(addToCartRequest.services)
+            addToCartRequest.order_date = ""
+            getCurrentDate()
+            addToCartRequest.order_slot_id = ""
+            Log.e("asasasasas",addToCartRequest.categoryId)
+        }
     }
 
     private fun clickListeners() {
         clAddFriendAddress.setOnClickListener {
             addToCartRequest.addresstype = "home"
-            findNavController().navigate(R.id.action_serviceDetailFragment_to_addressFragment)
+            Constants.COMING_FROM = "cart"
+            findNavController().navigate(R.id.action_serviceDetailFragment_to_selectLocationFragment)
         }
 
         cl_select_date.setOnClickListener {
@@ -250,7 +260,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
                             it?.services as ArrayList<ServicesItem> /* = java.util.ArrayList<com.reemastyle.model.services.ServicesItem> */
                         setUpServiceAdapter(servicesList)
 
-                        txt_service.text = servicesList[0].subcatName
+                        txt_service.text = (servicesList[0].subcatName?:"").capitalize()
                     }
 
                     if (it?.slots?.isNullOrEmpty() == false) {
@@ -293,7 +303,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
                             it.message ?: getString(R.string.added_to_cart_successfully),
                             rv_time_slots
                         )
-                        findNavController()?.navigate(R.id.action_serviceDetailFragment_to_cartFragment)
+                        findNavController()?.navigate(R.id.cartFragment)
 //                startActivity(Intent(viewLifecycleOwner, HomeActivity::class.java))
 //                (viewLifecycleOwner as HomeActivity).finish()
                     }
@@ -424,6 +434,7 @@ class ServiceDetailFragment : Fragment(), ServiceItemClicked, TimeSlotSelected, 
 
     override fun onTimeSlotSelected(position: Int) {
         addToCartRequest.order_slot_id = slotList[position].id?:"0"
+        addToCartRequest.order_slot_time = slotList[position].time?:""
         selectedTime = slotList[position].time?:""
     }
 

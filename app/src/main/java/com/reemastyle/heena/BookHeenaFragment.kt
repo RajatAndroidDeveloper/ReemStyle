@@ -25,6 +25,7 @@ import com.reemastyle.model.heenadetail.HeenaSectionItem
 import com.reemastyle.model.heenadetail.SlotsItem
 import com.reemastyle.service.ServiceDetailFragment
 import com.reemastyle.service.TimeSlotsAdapter
+import com.reemastyle.util.Constants
 import com.reemastyle.util.Utils
 import kotlinx.android.synthetic.main.fragment_book_heena.*
 import kotlinx.android.synthetic.main.fragment_book_heena.btn_book_now
@@ -85,6 +86,14 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
             setUpData(selectedHeena!!)
         }
 
+        if(Constants.HEENA_RESPONSE != null){
+            txt_quantity.text = selectedQuantity.toString()
+            selectedDate = ""
+            selectedTime = ""
+            getCurrentDate()
+            selectedSlot = 0
+            txt_total.text = getString(R.string.currency_value)+" "+subtotal
+        }
         clAddressHome.performClick()
     }
 
@@ -105,7 +114,9 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
             selectedAddressType == "home"
             var bundle  = Bundle()
             bundle.putString("from","addToCart")
-            findNavController().navigate(R.id.action_bookHeenaFragment_to_addressFragment)
+            Constants.COMING_FROM = "cart"
+            Constants.HEENA_RESPONSE = Gson().toJson(heenaResponse)
+            findNavController().navigate(R.id.action_bookHeenaFragment_to_selectLocationFragment)
         }
 
         img_add.setOnClickListener{
@@ -223,7 +234,8 @@ class BookHeenaFragment: Fragment(), TimeSlotSelected {
         mViewModel.addHeenaToCartResponse.observe(requireActivity(), androidx.lifecycle.Observer {
             Utils.showLoading(false, requireActivity())
             if (it.status == true) {
-               findNavController().navigate(R.id.action_bookHeenaFragment_to_cartFragment)
+                Constants.HEENA_RESPONSE = ""
+                findNavController().navigate(R.id.cartFragment)
             } else {
                 Utils.showSnackBar( it.message?:getString(R.string.please_try_ahain), img_add)
             }

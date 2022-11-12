@@ -106,6 +106,15 @@ class PackageDetailsFragment : Fragment(),
         getCurrentDate()
 
         attachObservers()
+
+        if(quantity != 0){
+            txt_quantity.text  = quantity.toString()
+            selectedTime = ""
+            selectedTimeSlot = ""
+            selectedDate = ""
+            getCurrentDate()
+            txt_total.text = "${getString(R.string.currency_value)} $totalAmount"
+        }
     }
 
     private fun clickListeners() {
@@ -123,7 +132,8 @@ class PackageDetailsFragment : Fragment(),
 
         clAddFriendAddress.setOnClickListener {
             addressType == "home"
-            findNavController().navigate(R.id.action_packageDetailsFragment_to_addressFragment)
+            Constants .COMING_FROM = "cart"
+            findNavController().navigate(R.id.action_packageDetailsFragment_to_selectLocationFragment)
         }
 
         clAddressShop.setOnClickListener {
@@ -217,7 +227,7 @@ class PackageDetailsFragment : Fragment(),
     private fun calculatePrice(packageDetails: Packagedata) {
         totalAmount = 0.0
         totalAmount = ((packageDetails.price ?: "0.0").toDouble() * quantity.toDouble())
-        txt_total.text = "QAR $totalAmount"
+        txt_total.text = "${getString(R.string.currency_value)} $totalAmount"
     }
 
     private fun setUpTimeSlotAdapter(slotListData: ArrayList<SlotsItem>) {
@@ -253,7 +263,7 @@ class PackageDetailsFragment : Fragment(),
                 Utils.showSnackBar(it.message?:getString(R.string.please_try_ahain), img_add)
             } else {
                 Utils.showSnackBar(it.message?:getString(R.string.data_added_ion_cart), img_add)
-                findNavController().navigate(R.id.action_packageDetailsFragment_to_cartFragment)
+                findNavController().navigate(R.id.cartFragment)
             }
         })
 

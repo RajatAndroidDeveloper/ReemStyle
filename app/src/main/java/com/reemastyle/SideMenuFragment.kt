@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.reemastyle.util.Constants
 import com.reemastyle.util.LocaleHelper
 import com.reemastyle.util.Utils
 import kotlinx.android.synthetic.main.activity_home.*

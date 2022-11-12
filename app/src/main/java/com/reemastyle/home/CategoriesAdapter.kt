@@ -29,13 +29,13 @@ class CategoriesAdapter(
         if (categoryList[position].id == "0" && type == "home") {
             holder.layout.img_category.background = context.getDrawable(R.drawable.ic_selected_cate)
             holder.layout.img_category.setImageResource(R.drawable.more_icon)
-            holder.layout.txt_category_title.text = categoryList[position].catName
+            holder.layout.txt_category_title.text = (categoryList[position].catName?:"").capitalize()
             holder.layout.img_category.setPadding(55)
         } else {
             if (!categoryList[position].image.isNullOrEmpty())
                 Glide.with(context).load(categoryList[position].image).placeholder(R.drawable.cate_dummy)
                     .into(holder.layout.img_category)
-            holder.layout.txt_category_title.text = categoryList[position].catName
+            holder.layout.txt_category_title.text = (categoryList[position].catName?:"").capitalize()
         }
 
         holder.layout.setOnClickListener {

@@ -8,6 +8,7 @@ class AddToCartRequest() {
     var categoryId = "0"
     var subcategory_id = "0"
     var order_slot_id = "0"
+    var order_slot_time = "0"
     var addresstype = "home"
     var addressId = "50"
     var totalAmount = "0"

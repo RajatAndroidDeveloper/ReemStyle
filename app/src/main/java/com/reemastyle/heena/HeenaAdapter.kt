@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,12 +15,12 @@ import com.reemastyle.model.heenacategories.ResultItem
 import kotlinx.android.synthetic.main.sub_categories_adapter_item_layout.view.*
 
 class HeenaAdapter(private var context: Context, private var onHeenaItemClicked: HeenaItemClicked, private var heenaList: ArrayList<ResultItem>) : RecyclerView.Adapter<HeenaAdapter.MyViewHolder>() {
-    inner class MyViewHolder(val layout: ConstraintLayout) : RecyclerView.ViewHolder(layout)
+    inner class MyViewHolder(val layout: CardView) : RecyclerView.ViewHolder(layout)
 
     private var selected = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.sub_categories_adapter_item_layout, parent, false) as ConstraintLayout
+        var view = LayoutInflater.from(parent.context).inflate(R.layout.sub_categories_adapter_item_layout, parent, false) as CardView
         return MyViewHolder(view)
     }
 
